@@ -9,7 +9,6 @@ import {
   TableHead, 
   TableRow, 
   Paper, 
-  Chip,
   Card,
   CardContent,
   TextField,
@@ -199,14 +198,6 @@ const monthlyDeliveryData = [
   { month: 'Dec 2025', target: 100, actual: 0 }
 ];
 
-const supplierRevenueData = [
-  { name: 'Roku', revenue: 2450000, color: '#02b5e7' },
-  { name: 'Amazon Fire TV', revenue: 1920000, color: '#ff6b35' },
-  { name: 'Samsung Smart TV', revenue: 1460000, color: '#4caf50' },
-  { name: 'Apple TV', revenue: 820000, color: '#9c27b0' },
-  { name: 'Google Chromecast', revenue: 1330000, color: '#ff9800' },
-  { name: 'LG Smart TV', revenue: 1010000, color: '#f44336' }
-];
 
 const formatCurrency = (amount: number) => {
   return new Intl.NumberFormat('en-GB', {
@@ -216,9 +207,6 @@ const formatCurrency = (amount: number) => {
   }).format(amount);
 };
 
-const formatNumber = (num: number) => {
-  return new Intl.NumberFormat('en-GB').format(num);
-};
 
 const DashboardPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -346,8 +334,6 @@ const DashboardPage: React.FC = () => {
                 position: 'sticky',
                 left: 0,
                 backgroundColor: '#f8f9fa',
-                minWidth: 100,
-                width: 100,
                 zIndex: 1,
                 minWidth: 150,
                 width: 150
@@ -691,8 +677,6 @@ const DashboardPage: React.FC = () => {
                 position: 'sticky',
                 left: 0,
                 backgroundColor: '#f8f9fa',
-                minWidth: 100,
-                width: 100,
                 zIndex: 1,
                 minWidth: 150,
                 width: 150
@@ -1032,8 +1016,6 @@ const DashboardPage: React.FC = () => {
                 position: 'sticky',
                 left: 0,
                 backgroundColor: '#f8f9fa',
-                minWidth: 100,
-                width: 100,
                 zIndex: 1,
                 minWidth: 150,
                 width: 150
