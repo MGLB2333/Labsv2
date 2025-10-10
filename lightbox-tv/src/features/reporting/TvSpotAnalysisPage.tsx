@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Box, Typography, Tabs, Tab, Button, Breadcrumbs, Link } from '@mui/material';
+import { Box, Typography, Tabs, Tab, Button } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
 import FrontsheetTab from './components/FrontsheetTab';
 import QualityTab from './components/QualityTab';
@@ -43,9 +43,9 @@ const TvSpotAnalysisPage: React.FC = () => {
     4: { name: 'Testing Summary', client: 'Internal' },
   };
 
-  const campaign = campaignData[campaignId as keyof typeof campaignData] || { name: 'Unknown Campaign', client: 'Unknown' };
+  const campaign = campaignData[parseInt(campaignId || '0') as keyof typeof campaignData] || { name: 'Unknown Campaign', client: 'Unknown' };
 
-  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue);
   };
 

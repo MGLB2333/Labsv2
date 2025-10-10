@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
-  Drawer,
   List,
   ListItemButton,
   ListItemIcon,
@@ -19,7 +18,6 @@ import {
   Build,
   ExpandMore,
   ExpandLess,
-  Tv,
 } from '@mui/icons-material';
 import LabsRibbon from '@/shared/components/LabsRibbon';
 

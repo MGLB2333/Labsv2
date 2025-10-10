@@ -17,7 +17,7 @@ interface UserDropdownProps {
   onClose: () => void;
 }
 
-const UserDropdown: React.FC<UserDropdownProps> = ({ open, anchorEl, onClose }) => {
+const UserDropdown: React.FC<UserDropdownProps> = ({ open, onClose }) => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
 

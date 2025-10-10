@@ -4,7 +4,6 @@ import {
   Box,
   Typography,
   Paper,
-  Grid,
   Button,
   Card,
   CardContent,
@@ -15,6 +14,7 @@ import {
   DialogContent,
   DialogActions,
   IconButton,
+  Grid,
 } from '@mui/material';
 import { CheckCircle, Palette, Close, Info } from '@mui/icons-material';
 
@@ -84,7 +84,7 @@ const WhitelabelPage: React.FC = () => {
         {/* Logo Options */}
         <Grid container spacing={3}>
           {/* Default Logo */}
-          <Grid item xs={12} md={6}>
+          <Grid xs={12} md={6}>
             <Card
               sx={{
                 border: selectedLogo === 'default' ? '2px solid #02b5e7' : '1px solid #e0e0e0',
@@ -156,7 +156,7 @@ const WhitelabelPage: React.FC = () => {
           </Grid>
 
           {/* Custom Logo */}
-          <Grid item xs={12} md={6}>
+          <Grid xs={12} md={6}>
             <Card
               sx={{
                 border: selectedLogo === 'custom' ? '2px solid #02b5e7' : '1px solid #e0e0e0',
@@ -282,7 +282,7 @@ const WhitelabelPage: React.FC = () => {
             </Box>
             
             <Grid container spacing={2}>
-              <Grid item xs={6} sm={3}>
+              <Grid xs={6} sm={3}>
                 <Box sx={{ textAlign: 'center' }}>
                   <Box
                     sx={{
@@ -301,7 +301,7 @@ const WhitelabelPage: React.FC = () => {
                 </Box>
               </Grid>
               
-              <Grid item xs={6} sm={3}>
+              <Grid xs={6} sm={3}>
                 <Box sx={{ textAlign: 'center' }}>
                   <Box
                     sx={{
@@ -320,7 +320,7 @@ const WhitelabelPage: React.FC = () => {
                 </Box>
               </Grid>
               
-              <Grid item xs={6} sm={3}>
+              <Grid xs={6} sm={3}>
                 <Box sx={{ textAlign: 'center' }}>
                   <Box
                     sx={{
@@ -339,7 +339,7 @@ const WhitelabelPage: React.FC = () => {
                 </Box>
               </Grid>
               
-              <Grid item xs={6} sm={3}>
+              <Grid xs={6} sm={3}>
                 <Box sx={{ textAlign: 'center' }}>
                   <Box
                     sx={{
@@ -449,7 +449,7 @@ const WhitelabelPage: React.FC = () => {
         
         <DialogContent sx={{ p: 2 }}>
           <Grid container spacing={2}>
-            <Grid item xs={6} sm={3}>
+            <Grid xs={6} sm={3}>
               <Box sx={{ p: 2, backgroundColor: '#f8f9fa', borderRadius: 1, textAlign: 'center' }}>
                 <Typography variant="body2" sx={{ fontSize: '12px', fontWeight: 600, color: '#333', mb: 0.5 }}>
                   Size
@@ -459,7 +459,7 @@ const WhitelabelPage: React.FC = () => {
                 </Typography>
               </Box>
             </Grid>
-            <Grid item xs={6} sm={3}>
+            <Grid xs={6} sm={3}>
               <Box sx={{ p: 2, backgroundColor: '#f8f9fa', borderRadius: 1, textAlign: 'center' }}>
                 <Typography variant="body2" sx={{ fontSize: '12px', fontWeight: 600, color: '#333', mb: 0.5 }}>
                   Format
@@ -469,7 +469,7 @@ const WhitelabelPage: React.FC = () => {
                 </Typography>
               </Box>
             </Grid>
-            <Grid item xs={6} sm={3}>
+            <Grid xs={6} sm={3}>
               <Box sx={{ p: 2, backgroundColor: '#f8f9fa', borderRadius: 1, textAlign: 'center' }}>
                 <Typography variant="body2" sx={{ fontSize: '12px', fontWeight: 600, color: '#333', mb: 0.5 }}>
                   File Size
@@ -479,7 +479,7 @@ const WhitelabelPage: React.FC = () => {
                 </Typography>
               </Box>
             </Grid>
-            <Grid item xs={6} sm={3}>
+            <Grid xs={6} sm={3}>
               <Box sx={{ p: 2, backgroundColor: '#f8f9fa', borderRadius: 1, textAlign: 'center' }}>
                 <Typography variant="body2" sx={{ fontSize: '12px', fontWeight: 600, color: '#333', mb: 0.5 }}>
                   Background

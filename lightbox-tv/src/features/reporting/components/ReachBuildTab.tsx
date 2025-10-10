@@ -11,7 +11,6 @@ import {
   Paper,
   ToggleButton,
   ToggleButtonGroup,
-  Grid,
 } from '@mui/material';
 import {
   TableChart,
@@ -73,7 +72,7 @@ const ReachBuildTab: React.FC = () => {
   const [viewMode, setViewMode] = useState<'table' | 'chart'>('table');
 
   const handleViewModeChange = (
-    event: React.MouseEvent<HTMLElement>,
+    _event: React.MouseEvent<HTMLElement>,
     newViewMode: 'table' | 'chart' | null,
   ) => {
     if (newViewMode !== null) {

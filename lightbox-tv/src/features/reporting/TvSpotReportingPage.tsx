@@ -16,9 +16,9 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Grid,
   Chip,
   IconButton,
+  Grid,
 } from '@mui/material';
 import {
   Add,
@@ -146,7 +146,7 @@ const TvSpotReportingPage: React.FC = () => {
         {/* Filters Header */}
         <Box sx={{ p: 2, borderBottom: '1px solid #e0e0e0', backgroundColor: 'white' }}>
           <Grid container spacing={2} alignItems="center">
-            <Grid item xs={12} sm={6} md={4}>
+                <Grid xs={12} sm={6} md={4}>
               <TextField
                 fullWidth
                 size="small"
@@ -174,7 +174,7 @@ const TvSpotReportingPage: React.FC = () => {
               />
             </Grid>
             
-            <Grid item xs={12} sm={6} md={3}>
+                <Grid xs={12} sm={6} md={3}>
               <FormControl fullWidth size="small" sx={{ minWidth: 140 }}>
                 <InputLabel sx={{ fontSize: '12px' }}>Status</InputLabel>
                 <Select
@@ -190,7 +190,7 @@ const TvSpotReportingPage: React.FC = () => {
               </FormControl>
             </Grid>
             
-            <Grid item xs={12} sm={6} md={3}>
+                <Grid xs={12} sm={6} md={3}>
               <Button
                 variant="outlined"
                 size="small"

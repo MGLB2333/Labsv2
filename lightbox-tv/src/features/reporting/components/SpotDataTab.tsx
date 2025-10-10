@@ -15,8 +15,8 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Grid,
   Chip,
+  Grid,
 } from '@mui/material';
 import {
   FilterList,
@@ -69,7 +69,7 @@ const SpotDataTab: React.FC = () => {
       {/* Filters Row */}
       <Paper sx={{ p: 2, mb: 3, boxShadow: 'none', border: '1px solid #e0e0e0' }}>
         <Grid container spacing={2} alignItems="center">
-          <Grid item xs={12} sm={6} md={2}>
+          <Grid xs={12} sm={6} md={2}>
             <FormControl fullWidth size="small" sx={{ minWidth: 140 }}>
               <InputLabel sx={{ fontSize: '12px' }}>Campaign</InputLabel>
               <Select
@@ -86,7 +86,7 @@ const SpotDataTab: React.FC = () => {
             </FormControl>
           </Grid>
           
-          <Grid item xs={12} sm={6} md={2}>
+          <Grid xs={12} sm={6} md={2}>
             <FormControl fullWidth size="small" sx={{ minWidth: 140 }}>
               <InputLabel sx={{ fontSize: '12px' }}>Station</InputLabel>
               <Select
@@ -110,7 +110,7 @@ const SpotDataTab: React.FC = () => {
             </FormControl>
           </Grid>
           
-          <Grid item xs={12} sm={6} md={2}>
+          <Grid xs={12} sm={6} md={2}>
             <FormControl fullWidth size="small" sx={{ minWidth: 140 }}>
               <InputLabel sx={{ fontSize: '12px' }}>Date Range</InputLabel>
               <Select
@@ -129,7 +129,7 @@ const SpotDataTab: React.FC = () => {
             </FormControl>
           </Grid>
           
-          <Grid item xs={12} sm={6} md={2}>
+          <Grid xs={12} sm={6} md={2}>
             <FormControl fullWidth size="small" sx={{ minWidth: 140 }}>
               <InputLabel sx={{ fontSize: '12px' }}>Spot Type</InputLabel>
               <Select
@@ -148,7 +148,7 @@ const SpotDataTab: React.FC = () => {
             </FormControl>
           </Grid>
           
-          <Grid item xs={12} sm={6} md={2}>
+          <Grid xs={12} sm={6} md={2}>
             <TextField
               fullWidth
               size="small"
@@ -176,7 +176,7 @@ const SpotDataTab: React.FC = () => {
             />
           </Grid>
           
-          <Grid item xs={12} sm={6} md={2}>
+          <Grid xs={12} sm={6} md={2}>
             <Box sx={{ display: 'flex', gap: 1 }}>
               <Button
                 variant="contained"

@@ -4,7 +4,6 @@ import {
   Box,
   Typography,
   Paper,
-  Grid,
   TextField,
   Button,
   Avatar,
@@ -74,9 +73,9 @@ const ProfilePage: React.FC = () => {
       </Box>
 
       {/* Profile Content */}
-      <Grid container spacing={3}>
+      <Box sx={{ display: 'flex', gap: 3, flexDirection: { xs: 'column', md: 'row' } }}>
         {/* Left Column - Avatar and Basic Info */}
-        <Grid item xs={12} md={4}>
+        <Box sx={{ flex: { xs: '1', md: '0 0 33.333%' } }}>
           <Paper sx={{ p: 3, boxShadow: 'none', border: '1px solid #e0e0e0' }}>
             <Box sx={{ textAlign: 'center', mb: 3 }}>
               <Avatar
@@ -121,10 +120,10 @@ const ProfilePage: React.FC = () => {
               </Typography>
             </Box>
           </Paper>
-        </Grid>
+        </Box>
 
         {/* Right Column - Detailed Information */}
-        <Grid item xs={12} md={8}>
+        <Box sx={{ flex: { xs: '1', md: '0 0 66.666%' } }}>
           <Paper sx={{ p: 3, boxShadow: 'none', border: '1px solid #e0e0e0' }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
               <Typography variant="h6" sx={{ fontSize: '16px', fontWeight: 600, color: '#333' }}>
@@ -180,8 +179,8 @@ const ProfilePage: React.FC = () => {
               )}
             </Box>
 
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+            <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
+              <Box sx={{ flex: 1 }}>
                 <TextField
                   fullWidth
                   label="First Name"
@@ -198,8 +197,8 @@ const ProfilePage: React.FC = () => {
                     },
                   }}
                 />
-              </Grid>
-              <Grid item xs={12} sm={6}>
+              </Box>
+              <Box sx={{ flex: 1 }}>
                 <TextField
                   fullWidth
                   label="Last Name"
@@ -216,8 +215,8 @@ const ProfilePage: React.FC = () => {
                     },
                   }}
                 />
-              </Grid>
-              <Grid item xs={12} sm={6}>
+              </Box>
+              <Box sx={{ flex: 1 }}>
                 <TextField
                   fullWidth
                   label="Email"
@@ -234,8 +233,8 @@ const ProfilePage: React.FC = () => {
                     },
                   }}
                 />
-              </Grid>
-              <Grid item xs={12} sm={6}>
+              </Box>
+              <Box sx={{ flex: 1 }}>
                 <TextField
                   fullWidth
                   label="Phone"
@@ -252,8 +251,8 @@ const ProfilePage: React.FC = () => {
                     },
                   }}
                 />
-              </Grid>
-              <Grid item xs={12} sm={6}>
+              </Box>
+              <Box sx={{ flex: 1 }}>
                 <TextField
                   fullWidth
                   label="Company"
@@ -270,8 +269,8 @@ const ProfilePage: React.FC = () => {
                     },
                   }}
                 />
-              </Grid>
-              <Grid item xs={12} sm={6}>
+              </Box>
+              <Box sx={{ flex: 1 }}>
                 <TextField
                   fullWidth
                   label="Job Title"
@@ -288,8 +287,8 @@ const ProfilePage: React.FC = () => {
                     },
                   }}
                 />
-              </Grid>
-              <Grid item xs={12} sm={6}>
+              </Box>
+              <Box sx={{ flex: 1 }}>
                 <TextField
                   fullWidth
                   label="Department"
@@ -306,8 +305,8 @@ const ProfilePage: React.FC = () => {
                     },
                   }}
                 />
-              </Grid>
-              <Grid item xs={12} sm={6}>
+              </Box>
+              <Box sx={{ flex: 1 }}>
                 <TextField
                   fullWidth
                   label="Location"
@@ -324,8 +323,8 @@ const ProfilePage: React.FC = () => {
                     },
                   }}
                 />
-              </Grid>
-              <Grid item xs={12}>
+              </Box>
+              <Box sx={{ flex: 1 }}>
                 <TextField
                   fullWidth
                   label="Bio"
@@ -344,11 +343,11 @@ const ProfilePage: React.FC = () => {
                     },
                   }}
                 />
-              </Grid>
-            </Grid>
+              </Box>
+            </Box>
           </Paper>
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
     </Box>
   );
 };

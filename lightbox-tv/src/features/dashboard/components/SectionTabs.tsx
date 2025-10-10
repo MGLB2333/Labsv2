@@ -8,7 +8,7 @@ interface SectionTabsProps {
 }
 
 const SectionTabs: React.FC<SectionTabsProps> = ({ activeTab, onTabChange }) => {
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     onTabChange(newValue);
   };
 

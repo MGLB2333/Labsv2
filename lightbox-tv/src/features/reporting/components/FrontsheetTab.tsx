@@ -10,7 +10,6 @@ import {
   TableRow,
   Paper,
   Chip,
-  Grid,
   Button,
   Dialog,
   DialogTitle,
@@ -21,6 +20,7 @@ import {
   MenuItem,
   ListItemIcon,
   ListItemText,
+  Grid,
 } from '@mui/material';
 import { Close, BarChart, Download, Update, History, MoreVert } from '@mui/icons-material';
 
@@ -37,21 +37,6 @@ const campaignData = {
   valueDelivered: 763688.75,
   difference: -1306311.25,
 };
-
-const audienceData = [
-  {
-    type: 'Primary Audience',
-    planned: 0,
-    delivered: 0,
-    difference: 0,
-  },
-  {
-    type: 'Secondary Audience',
-    planned: 0,
-    delivered: 0,
-    difference: 0,
-  },
-];
 
 const stationData = [
   // HP+CH Audience
@@ -199,7 +184,7 @@ const FrontsheetTab: React.FC = () => {
           </Box>
         </Box>
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid xs={12} sm={6} md={3}>
             <Typography variant="body2" sx={{ fontSize: '10px', color: '#666', mb: 0.5, textTransform: 'uppercase', fontWeight: 500 }}>
               Client/Product
             </Typography>
@@ -207,7 +192,7 @@ const FrontsheetTab: React.FC = () => {
               {campaignData.client}
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid xs={12} sm={6} md={3}>
             <Typography variant="body2" sx={{ fontSize: '10px', color: '#666', mb: 0.5, textTransform: 'uppercase', fontWeight: 500 }}>
               Spend CTC
             </Typography>
@@ -215,7 +200,7 @@ const FrontsheetTab: React.FC = () => {
               {campaignData.spend}
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid xs={12} sm={6} md={3}>
             <Typography variant="body2" sx={{ fontSize: '10px', color: '#666', mb: 0.5, textTransform: 'uppercase', fontWeight: 500 }}>
               Approval Date
             </Typography>
@@ -223,7 +208,7 @@ const FrontsheetTab: React.FC = () => {
               {campaignData.approvalDate}
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid xs={12} sm={6} md={3}>
             <Typography variant="body2" sx={{ fontSize: '10px', color: '#666', mb: 0.5, textTransform: 'uppercase', fontWeight: 500 }}>
               Campaign Month
             </Typography>
