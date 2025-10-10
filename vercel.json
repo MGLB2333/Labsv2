@@ -1,0 +1,6 @@
+{
+  "buildCommand": "cd lightbox-tv && npm run build",
+  "outputDirectory": "lightbox-tv/dist",
+  "installCommand": "cd lightbox-tv && npm install",
+  "framework": "vite"
+}
