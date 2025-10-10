@@ -16,7 +16,6 @@ import {
   Select,
   MenuItem,
   Chip,
-  Grid,
 } from '@mui/material';
 import {
   FilterList,
@@ -68,8 +67,8 @@ const SpotDataTab: React.FC = () => {
 
       {/* Filters Row */}
       <Paper sx={{ p: 2, mb: 3, boxShadow: 'none', border: '1px solid #e0e0e0' }}>
-        <Grid container spacing={2} alignItems="center">
-          <Grid xs={12} sm={6} md={2}>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, alignItems: 'center' }}>
+          <Box sx={{ flex: '1 1 200px', minWidth: 200 }}>
             <FormControl fullWidth size="small" sx={{ minWidth: 140 }}>
               <InputLabel sx={{ fontSize: '12px' }}>Campaign</InputLabel>
               <Select
@@ -84,9 +83,9 @@ const SpotDataTab: React.FC = () => {
                 <MenuItem value="testing-summary">Testing Summary</MenuItem>
               </Select>
             </FormControl>
-          </Grid>
+          </Box>
           
-          <Grid xs={12} sm={6} md={2}>
+          <Box sx={{ flex: '1 1 200px', minWidth: 200 }}>
             <FormControl fullWidth size="small" sx={{ minWidth: 140 }}>
               <InputLabel sx={{ fontSize: '12px' }}>Station</InputLabel>
               <Select
@@ -108,9 +107,9 @@ const SpotDataTab: React.FC = () => {
                 <MenuItem value="c5">C5</MenuItem>
               </Select>
             </FormControl>
-          </Grid>
+          </Box>
           
-          <Grid xs={12} sm={6} md={2}>
+          <Box sx={{ flex: '1 1 200px', minWidth: 200 }}>
             <FormControl fullWidth size="small" sx={{ minWidth: 140 }}>
               <InputLabel sx={{ fontSize: '12px' }}>Date Range</InputLabel>
               <Select
@@ -127,9 +126,9 @@ const SpotDataTab: React.FC = () => {
                 <MenuItem value="march-2025">March 2025</MenuItem>
               </Select>
             </FormControl>
-          </Grid>
+          </Box>
           
-          <Grid xs={12} sm={6} md={2}>
+          <Box sx={{ flex: '1 1 200px', minWidth: 200 }}>
             <FormControl fullWidth size="small" sx={{ minWidth: 140 }}>
               <InputLabel sx={{ fontSize: '12px' }}>Spot Type</InputLabel>
               <Select
@@ -146,9 +145,9 @@ const SpotDataTab: React.FC = () => {
                 <MenuItem value="sponsorship">Sponsorship</MenuItem>
               </Select>
             </FormControl>
-          </Grid>
+          </Box>
           
-          <Grid xs={12} sm={6} md={2}>
+          <Box sx={{ flex: '1 1 200px', minWidth: 200 }}>
             <TextField
               fullWidth
               size="small"
@@ -174,9 +173,9 @@ const SpotDataTab: React.FC = () => {
                 startAdornment: <Search sx={{ color: '#666', fontSize: 16, mr: 1 }} />,
               }}
             />
-          </Grid>
+          </Box>
           
-          <Grid xs={12} sm={6} md={2}>
+          <Box sx={{ flex: '1 1 200px', minWidth: 200 }}>
             <Box sx={{ display: 'flex', gap: 1 }}>
               <Button
                 variant="contained"
@@ -221,8 +220,8 @@ const SpotDataTab: React.FC = () => {
                 </Button>
               )}
             </Box>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
         
         {/* Active Filters Display */}
         {hasActiveFilters && (

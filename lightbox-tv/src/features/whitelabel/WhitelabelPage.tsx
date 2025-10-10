@@ -14,7 +14,6 @@ import {
   DialogContent,
   DialogActions,
   IconButton,
-  Grid,
 } from '@mui/material';
 import { CheckCircle, Palette, Close, Info } from '@mui/icons-material';
 
@@ -82,9 +81,9 @@ const WhitelabelPage: React.FC = () => {
         </Typography>
         
         {/* Logo Options */}
-        <Grid container spacing={3}>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
           {/* Default Logo */}
-          <Grid xs={12} md={6}>
+          <Box sx={{ flex: '1 1 300px', minWidth: 300 }}>
             <Card
               sx={{
                 border: selectedLogo === 'default' ? '2px solid #02b5e7' : '1px solid #e0e0e0',
@@ -153,10 +152,10 @@ const WhitelabelPage: React.FC = () => {
                 </CardContent>
               </CardActionArea>
             </Card>
-          </Grid>
+          </Box>
 
           {/* Custom Logo */}
-          <Grid xs={12} md={6}>
+          <Box sx={{ flex: '1 1 300px', minWidth: 300 }}>
             <Card
               sx={{
                 border: selectedLogo === 'custom' ? '2px solid #02b5e7' : '1px solid #e0e0e0',
@@ -218,8 +217,8 @@ const WhitelabelPage: React.FC = () => {
                 </CardContent>
               </CardActionArea>
             </Card>
-          </Grid>
-        </Grid>
+          </Box>
+              </Box>
 
         {/* Upload Section */}
         {selectedLogo === 'custom' && (
@@ -281,8 +280,8 @@ const WhitelabelPage: React.FC = () => {
               </Typography>
             </Box>
             
-            <Grid container spacing={2}>
-              <Grid xs={6} sm={3}>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+              <Box sx={{ flex: '1 1 150px', minWidth: 150 }}>
                 <Box sx={{ textAlign: 'center' }}>
                   <Box
                     sx={{
@@ -299,9 +298,9 @@ const WhitelabelPage: React.FC = () => {
                     Primary
                   </Typography>
                 </Box>
-              </Grid>
+              </Box>
               
-              <Grid xs={6} sm={3}>
+              <Box sx={{ flex: '1 1 150px', minWidth: 150 }}>
                 <Box sx={{ textAlign: 'center' }}>
                   <Box
                     sx={{
@@ -318,9 +317,9 @@ const WhitelabelPage: React.FC = () => {
                     Header
                   </Typography>
                 </Box>
-              </Grid>
+              </Box>
               
-              <Grid xs={6} sm={3}>
+              <Box sx={{ flex: '1 1 150px', minWidth: 150 }}>
                 <Box sx={{ textAlign: 'center' }}>
                   <Box
                     sx={{
@@ -337,9 +336,9 @@ const WhitelabelPage: React.FC = () => {
                     Background
                   </Typography>
                 </Box>
-              </Grid>
+              </Box>
               
-              <Grid xs={6} sm={3}>
+              <Box sx={{ flex: '1 1 150px', minWidth: 150 }}>
                 <Box sx={{ textAlign: 'center' }}>
                   <Box
                     sx={{
@@ -356,8 +355,8 @@ const WhitelabelPage: React.FC = () => {
                     Borders
                   </Typography>
                 </Box>
-              </Grid>
-            </Grid>
+              </Box>
+            </Box>
             
             <Typography variant="body2" sx={{ fontSize: '11px', color: '#666', mt: 2, textAlign: 'center' }}>
               Color customization will be available in a future update
@@ -448,8 +447,8 @@ const WhitelabelPage: React.FC = () => {
         </DialogTitle>
         
         <DialogContent sx={{ p: 2 }}>
-          <Grid container spacing={2}>
-            <Grid xs={6} sm={3}>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+            <Box sx={{ flex: '1 1 150px', minWidth: 150 }}>
               <Box sx={{ p: 2, backgroundColor: '#f8f9fa', borderRadius: 1, textAlign: 'center' }}>
                 <Typography variant="body2" sx={{ fontSize: '12px', fontWeight: 600, color: '#333', mb: 0.5 }}>
                   Size
@@ -458,8 +457,8 @@ const WhitelabelPage: React.FC = () => {
                   200×60px
                 </Typography>
               </Box>
-            </Grid>
-            <Grid xs={6} sm={3}>
+            </Box>
+            <Box sx={{ flex: '1 1 150px', minWidth: 150 }}>
               <Box sx={{ p: 2, backgroundColor: '#f8f9fa', borderRadius: 1, textAlign: 'center' }}>
                 <Typography variant="body2" sx={{ fontSize: '12px', fontWeight: 600, color: '#333', mb: 0.5 }}>
                   Format
@@ -468,8 +467,8 @@ const WhitelabelPage: React.FC = () => {
                   PNG, JPG, SVG
                 </Typography>
               </Box>
-            </Grid>
-            <Grid xs={6} sm={3}>
+            </Box>
+            <Box sx={{ flex: '1 1 150px', minWidth: 150 }}>
               <Box sx={{ p: 2, backgroundColor: '#f8f9fa', borderRadius: 1, textAlign: 'center' }}>
                 <Typography variant="body2" sx={{ fontSize: '12px', fontWeight: 600, color: '#333', mb: 0.5 }}>
                   File Size
@@ -478,8 +477,8 @@ const WhitelabelPage: React.FC = () => {
                   Max 2MB
                 </Typography>
               </Box>
-            </Grid>
-            <Grid xs={6} sm={3}>
+            </Box>
+            <Box sx={{ flex: '1 1 150px', minWidth: 150 }}>
               <Box sx={{ p: 2, backgroundColor: '#f8f9fa', borderRadius: 1, textAlign: 'center' }}>
                 <Typography variant="body2" sx={{ fontSize: '12px', fontWeight: 600, color: '#333', mb: 0.5 }}>
                   Background
@@ -488,8 +487,8 @@ const WhitelabelPage: React.FC = () => {
                   Transparent
                 </Typography>
               </Box>
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
           
           <Box sx={{ mt: 3, p: 2, backgroundColor: '#f0f7ff', borderRadius: 1, border: '1px solid #e3f2fd' }}>
             <Typography variant="body2" sx={{ fontSize: '12px', fontWeight: 500, color: '#1976d2', mb: 1 }}>

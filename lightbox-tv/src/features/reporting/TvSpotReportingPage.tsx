@@ -18,7 +18,6 @@ import {
   MenuItem,
   Chip,
   IconButton,
-  Grid,
 } from '@mui/material';
 import {
   Add,
@@ -145,8 +144,8 @@ const TvSpotReportingPage: React.FC = () => {
       <TableContainer component={Paper} sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
         {/* Filters Header */}
         <Box sx={{ p: 2, borderBottom: '1px solid #e0e0e0', backgroundColor: 'white' }}>
-          <Grid container spacing={2} alignItems="center">
-                <Grid xs={12} sm={6} md={4}>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, alignItems: 'center' }}>
+                <Box sx={{ flex: '1 1 300px', minWidth: 300 }}>
               <TextField
                 fullWidth
                 size="small"
@@ -172,9 +171,9 @@ const TvSpotReportingPage: React.FC = () => {
                   startAdornment: <Search sx={{ color: '#666', fontSize: 16, mr: 1 }} />,
                 }}
               />
-            </Grid>
+                </Box>
             
-                <Grid xs={12} sm={6} md={3}>
+                <Box sx={{ flex: '1 1 200px', minWidth: 200 }}>
               <FormControl fullWidth size="small" sx={{ minWidth: 140 }}>
                 <InputLabel sx={{ fontSize: '12px' }}>Status</InputLabel>
                 <Select
@@ -188,9 +187,9 @@ const TvSpotReportingPage: React.FC = () => {
                   <MenuItem value="Draft">Draft</MenuItem>
                 </Select>
               </FormControl>
-            </Grid>
+                </Box>
             
-                <Grid xs={12} sm={6} md={3}>
+                <Box sx={{ flex: '1 1 200px', minWidth: 200 }}>
               <Button
                 variant="outlined"
                 size="small"
@@ -212,8 +211,8 @@ const TvSpotReportingPage: React.FC = () => {
               >
                 More Filters
               </Button>
-            </Grid>
-          </Grid>
+                </Box>
+                </Box>
         </Box>
         <Table size="small">
           <TableHead>

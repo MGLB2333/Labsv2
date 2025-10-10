@@ -20,7 +20,6 @@ import {
   MenuItem,
   ListItemIcon,
   ListItemText,
-  Grid,
 } from '@mui/material';
 import { Close, BarChart, Download, Update, History, MoreVert } from '@mui/icons-material';
 
@@ -183,40 +182,40 @@ const FrontsheetTab: React.FC = () => {
             </IconButton>
           </Box>
         </Box>
-        <Grid container spacing={3}>
-          <Grid xs={12} sm={6} md={3}>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+          <Box sx={{ flex: '1 1 200px', minWidth: 200 }}>
             <Typography variant="body2" sx={{ fontSize: '10px', color: '#666', mb: 0.5, textTransform: 'uppercase', fontWeight: 500 }}>
               Client/Product
             </Typography>
             <Typography variant="body1" sx={{ fontSize: '11px', fontWeight: 600 }}>
               {campaignData.client}
             </Typography>
-          </Grid>
-          <Grid xs={12} sm={6} md={3}>
+          </Box>
+          <Box sx={{ flex: '1 1 200px', minWidth: 200 }}>
             <Typography variant="body2" sx={{ fontSize: '10px', color: '#666', mb: 0.5, textTransform: 'uppercase', fontWeight: 500 }}>
               Spend CTC
             </Typography>
             <Typography variant="body1" sx={{ fontSize: '11px', fontWeight: 600 }}>
               {campaignData.spend}
             </Typography>
-          </Grid>
-          <Grid xs={12} sm={6} md={3}>
+          </Box>
+          <Box sx={{ flex: '1 1 200px', minWidth: 200 }}>
             <Typography variant="body2" sx={{ fontSize: '10px', color: '#666', mb: 0.5, textTransform: 'uppercase', fontWeight: 500 }}>
               Approval Date
             </Typography>
             <Typography variant="body1" sx={{ fontSize: '11px', fontWeight: 600 }}>
               {campaignData.approvalDate}
             </Typography>
-          </Grid>
-          <Grid xs={12} sm={6} md={3}>
+          </Box>
+          <Box sx={{ flex: '1 1 200px', minWidth: 200 }}>
             <Typography variant="body2" sx={{ fontSize: '10px', color: '#666', mb: 0.5, textTransform: 'uppercase', fontWeight: 500 }}>
               Campaign Month
             </Typography>
             <Typography variant="body1" sx={{ fontSize: '11px', fontWeight: 600 }}>
               {campaignData.month}
             </Typography>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
       </Paper>
 
       {/* More Actions Menu */}
