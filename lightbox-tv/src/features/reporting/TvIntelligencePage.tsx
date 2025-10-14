@@ -41,11 +41,8 @@ const TvIntelligencePage: React.FC = () => {
     <Box>
       {/* Header */}
       <Box sx={{ mb: 3 }}>
-        <Typography variant="h5" sx={{ fontSize: '20px', fontWeight: 600, color: '#333', mb: 1 }}>
+        <Typography variant="h4" sx={{ fontSize: '20px', fontWeight: 400, color: '#333' }}>
           TV Intelligence
-        </Typography>
-        <Typography variant="body2" sx={{ fontSize: '14px', color: '#666' }}>
-          Advanced analytics and competitive intelligence for TV advertising
         </Typography>
       </Box>
 

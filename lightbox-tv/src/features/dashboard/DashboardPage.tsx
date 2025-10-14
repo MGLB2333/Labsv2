@@ -213,92 +213,86 @@ const DashboardPage: React.FC = () => {
 
   const renderSuppliersContent = () => (
     <Box>
-      {/* Filters */}
-      <Box sx={{ display: 'flex', gap: 2, mb: 3, alignItems: 'center', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
-        <TextField
-          select
-          size="small"
-          label="Year"
-          value="2025"
-          sx={{ minWidth: 100 }}
-        >
-          <MenuItem value="2025">2025</MenuItem>
-          <MenuItem value="2024">2024</MenuItem>
-        </TextField>
-        
-        <TextField
-          select
-          size="small"
-          label="Quarter"
-          value="Q1"
-          sx={{ minWidth: 100 }}
-        >
-          <MenuItem value="Q1">Q1</MenuItem>
-          <MenuItem value="Q2">Q2</MenuItem>
-          <MenuItem value="Q3">Q3</MenuItem>
-          <MenuItem value="Q4">Q4</MenuItem>
-        </TextField>
-
-        <TextField
-          select
-          size="small"
-          label="Supplier"
-          value="All"
-          sx={{ minWidth: 150 }}
-        >
-          <MenuItem value="All">All Suppliers</MenuItem>
-          <MenuItem value="Roku">Roku</MenuItem>
-          <MenuItem value="Amazon">Amazon Fire TV</MenuItem>
-          <MenuItem value="Samsung">Samsung Smart TV</MenuItem>
-          <MenuItem value="Apple">Apple TV</MenuItem>
-          <MenuItem value="Google">Google Chromecast</MenuItem>
-          <MenuItem value="LG">LG Smart TV</MenuItem>
-        </TextField>
-
-        <TextField
-          select
-          size="small"
-          label="Status"
-          value="All"
-          sx={{ minWidth: 120 }}
-        >
-          <MenuItem value="All">All Status</MenuItem>
-          <MenuItem value="Active">Active</MenuItem>
-          <MenuItem value="Inactive">Inactive</MenuItem>
-        </TextField>
-
-        <Button
-          variant="outlined"
-          size="small"
-          sx={{ 
-            borderColor: '#02b5e7', 
-            color: '#02b5e7',
-            textTransform: 'none',
-            fontWeight: 500
-          }}
-        >
-          Apply Filters
-        </Button>
-
-        <Button
-          variant="text"
-          size="small"
-          sx={{ 
-            color: '#666',
-            textTransform: 'none',
-            fontWeight: 500
-          }}
-        >
-          Clear All
-        </Button>
-      </Box>
-
       {/* Monthly Revenue Chart */}
       <Card sx={{ mb: 3, boxShadow: 'none', border: '1px solid #e0e0e0' }}>
         <CardContent sx={{ p: 2 }}>
-          <Typography variant="h6" sx={{ fontSize: '16px', fontWeight: 600, color: '#333', mb: 2 }}>
-            Monthly Revenue Trend
-          </Typography>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+            <Typography variant="h6" sx={{ fontSize: '16px', fontWeight: 600, color: '#333' }}>
+              Monthly Revenue Trend
+            </Typography>
+            
+            {/* Filters */}
+            <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+              <TextField
+                select
+                size="small"
+                label="Year"
+                value="2025"
+                sx={{ minWidth: 80, '& .MuiInputBase-root': { height: 32 } }}
+              >
+                <MenuItem value="2025">2025</MenuItem>
+                <MenuItem value="2024">2024</MenuItem>
+              </TextField>
+              
+              <TextField
+                select
+                size="small"
+                label="Quarter"
+                value="Q1"
+                sx={{ minWidth: 80, '& .MuiInputBase-root': { height: 32 } }}
+              >
+                <MenuItem value="Q1">Q1</MenuItem>
+                <MenuItem value="Q2">Q2</MenuItem>
+                <MenuItem value="Q3">Q3</MenuItem>
+                <MenuItem value="Q4">Q4</MenuItem>
+              </TextField>
+
+              <TextField
+                select
+                size="small"
+                label="Supplier"
+                value="All"
+                sx={{ minWidth: 120, '& .MuiInputBase-root': { height: 32 } }}
+              >
+                <MenuItem value="All">All Suppliers</MenuItem>
+                <MenuItem value="Roku">Roku</MenuItem>
+                <MenuItem value="Amazon">Amazon Fire TV</MenuItem>
+                <MenuItem value="Samsung">Samsung Smart TV</MenuItem>
+                <MenuItem value="Apple">Apple TV</MenuItem>
+                <MenuItem value="Google">Google Chromecast</MenuItem>
+                <MenuItem value="LG">LG Smart TV</MenuItem>
+              </TextField>
+
+              <Button
+                variant="outlined"
+                size="small"
+                sx={{ 
+                  borderColor: '#02b5e7', 
+                  color: '#02b5e7',
+                  textTransform: 'none',
+                  fontWeight: 500,
+                  height: 32,
+                  px: 2
+                }}
+              >
+                Apply
+              </Button>
+
+              <Button
+                variant="text"
+                size="small"
+                sx={{ 
+                  color: '#666',
+                  textTransform: 'none',
+                  fontWeight: 500,
+                  height: 32,
+                  px: 1
+                }}
+              >
+                Clear
+              </Button>
+            </Box>
+          </Box>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={monthlySupplierData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
@@ -553,95 +547,86 @@ const DashboardPage: React.FC = () => {
 
   const renderClientsContent = () => (
     <Box>
-      {/* Filters */}
-      <Box sx={{ display: 'flex', gap: 2, mb: 3, alignItems: 'center', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
-        <TextField
-          select
-          size="small"
-          label="Year"
-          value="2025"
-          sx={{ minWidth: 100 }}
-        >
-          <MenuItem value="2025">2025</MenuItem>
-          <MenuItem value="2024">2024</MenuItem>
-        </TextField>
-        
-        <TextField
-          select
-          size="small"
-          label="Quarter"
-          value="Q1"
-          sx={{ minWidth: 100 }}
-        >
-          <MenuItem value="Q1">Q1</MenuItem>
-          <MenuItem value="Q2">Q2</MenuItem>
-          <MenuItem value="Q3">Q3</MenuItem>
-          <MenuItem value="Q4">Q4</MenuItem>
-        </TextField>
-
-        <TextField
-          select
-          size="small"
-          label="Client"
-          value="All"
-          sx={{ minWidth: 150 }}
-        >
-          <MenuItem value="All">All Clients</MenuItem>
-          <MenuItem value="IKEA">IKEA</MenuItem>
-          <MenuItem value="Polestar">Polestar</MenuItem>
-          <MenuItem value="Step Change">Step Change</MenuItem>
-          <MenuItem value="Nike">Nike</MenuItem>
-          <MenuItem value="Coca-Cola">Coca-Cola</MenuItem>
-          <MenuItem value="BMW">BMW</MenuItem>
-        </TextField>
-
-        <TextField
-          select
-          size="small"
-          label="Industry"
-          value="All"
-          sx={{ minWidth: 120 }}
-        >
-          <MenuItem value="All">All Industries</MenuItem>
-          <MenuItem value="Retail">Retail</MenuItem>
-          <MenuItem value="Automotive">Automotive</MenuItem>
-          <MenuItem value="Financial Services">Financial Services</MenuItem>
-          <MenuItem value="Sports & Fitness">Sports & Fitness</MenuItem>
-          <MenuItem value="Food & Beverage">Food & Beverage</MenuItem>
-        </TextField>
-
-        <Button
-          variant="outlined"
-          size="small"
-          sx={{ 
-            borderColor: '#02b5e7', 
-            color: '#02b5e7',
-            textTransform: 'none',
-            fontWeight: 500
-          }}
-        >
-          Apply Filters
-        </Button>
-
-        <Button
-          variant="text"
-          size="small"
-          sx={{ 
-            color: '#666',
-            textTransform: 'none',
-            fontWeight: 500
-          }}
-        >
-          Clear All
-        </Button>
-      </Box>
-
       {/* Monthly Spend Chart */}
       <Card sx={{ mb: 3, boxShadow: 'none', border: '1px solid #e0e0e0' }}>
         <CardContent sx={{ p: 2 }}>
-          <Typography variant="h6" sx={{ fontSize: '16px', fontWeight: 600, color: '#333', mb: 2 }}>
-            Monthly Client Spend Trend
-          </Typography>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+            <Typography variant="h6" sx={{ fontSize: '16px', fontWeight: 600, color: '#333' }}>
+              Monthly Client Spend Trend
+            </Typography>
+            
+            {/* Filters */}
+            <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+              <TextField
+                select
+                size="small"
+                label="Year"
+                value="2025"
+                sx={{ minWidth: 80, '& .MuiInputBase-root': { height: 32 } }}
+              >
+                <MenuItem value="2025">2025</MenuItem>
+                <MenuItem value="2024">2024</MenuItem>
+              </TextField>
+              
+              <TextField
+                select
+                size="small"
+                label="Quarter"
+                value="Q1"
+                sx={{ minWidth: 80, '& .MuiInputBase-root': { height: 32 } }}
+              >
+                <MenuItem value="Q1">Q1</MenuItem>
+                <MenuItem value="Q2">Q2</MenuItem>
+                <MenuItem value="Q3">Q3</MenuItem>
+                <MenuItem value="Q4">Q4</MenuItem>
+              </TextField>
+
+              <TextField
+                select
+                size="small"
+                label="Client"
+                value="All"
+                sx={{ minWidth: 120, '& .MuiInputBase-root': { height: 32 } }}
+              >
+                <MenuItem value="All">All Clients</MenuItem>
+                <MenuItem value="IKEA">IKEA</MenuItem>
+                <MenuItem value="Polestar">Polestar</MenuItem>
+                <MenuItem value="Step Change">Step Change</MenuItem>
+                <MenuItem value="Nike">Nike</MenuItem>
+                <MenuItem value="Coca-Cola">Coca-Cola</MenuItem>
+                <MenuItem value="BMW">BMW</MenuItem>
+              </TextField>
+
+              <Button
+                variant="outlined"
+                size="small"
+                sx={{ 
+                  borderColor: '#02b5e7', 
+                  color: '#02b5e7',
+                  textTransform: 'none',
+                  fontWeight: 500,
+                  height: 32,
+                  px: 2
+                }}
+              >
+                Apply
+              </Button>
+
+              <Button
+                variant="text"
+                size="small"
+                sx={{ 
+                  color: '#666',
+                  textTransform: 'none',
+                  fontWeight: 500,
+                  height: 32,
+                  px: 1
+                }}
+              >
+                Clear
+              </Button>
+            </Box>
+          </Box>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={monthlyClientData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
@@ -896,90 +881,96 @@ const DashboardPage: React.FC = () => {
 
   const renderDeliveryGoalsContent = () => (
     <Box>
-      {/* Filters */}
-      <Box sx={{ display: 'flex', gap: 2, mb: 3, alignItems: 'center', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
-        <TextField
-          select
-          size="small"
-          label="Year"
-          value="2025"
-          sx={{ minWidth: 100 }}
-        >
-          <MenuItem value="2025">2025</MenuItem>
-          <MenuItem value="2024">2024</MenuItem>
-        </TextField>
-        
-        <TextField
-          select
-          size="small"
-          label="Quarter"
-          value="Q1"
-          sx={{ minWidth: 100 }}
-        >
-          <MenuItem value="Q1">Q1</MenuItem>
-          <MenuItem value="Q2">Q2</MenuItem>
-          <MenuItem value="Q3">Q3</MenuItem>
-          <MenuItem value="Q4">Q4</MenuItem>
-        </TextField>
-
-        <TextField
-          select
-          size="small"
-          label="Goal Type"
-          value="All"
-          sx={{ minWidth: 120 }}
-        >
-          <MenuItem value="All">All Goals</MenuItem>
-          <MenuItem value="Delivery">Delivery Targets</MenuItem>
-          <MenuItem value="Efficiency">Efficiency Goals</MenuItem>
-          <MenuItem value="Performance">Performance Metrics</MenuItem>
-        </TextField>
-
-        <TextField
-          select
-          size="small"
-          label="Status"
-          value="All"
-          sx={{ minWidth: 120 }}
-        >
-          <MenuItem value="All">All Status</MenuItem>
-          <MenuItem value="Met">Target Met</MenuItem>
-          <MenuItem value="Below">Below Target</MenuItem>
-          <MenuItem value="Exceeded">Exceeded Target</MenuItem>
-        </TextField>
-
-        <Button
-          variant="outlined"
-          size="small"
-          sx={{ 
-            borderColor: '#02b5e7', 
-            color: '#02b5e7',
-            textTransform: 'none',
-            fontWeight: 500
-          }}
-        >
-          Apply Filters
-        </Button>
-
-        <Button
-          variant="text"
-          size="small"
-          sx={{ 
-            color: '#666',
-            textTransform: 'none',
-            fontWeight: 500
-          }}
-        >
-          Clear All
-        </Button>
-      </Box>
-
       {/* Monthly Delivery Performance Chart */}
       <Card sx={{ mb: 3, boxShadow: 'none', border: '1px solid #e0e0e0' }}>
         <CardContent sx={{ p: 2 }}>
-          <Typography variant="h6" sx={{ fontSize: '16px', fontWeight: 600, color: '#333', mb: 2 }}>
-            Monthly Delivery Performance
-          </Typography>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+            <Typography variant="h6" sx={{ fontSize: '16px', fontWeight: 600, color: '#333' }}>
+              Monthly Delivery Performance
+            </Typography>
+            
+            {/* Filters */}
+            <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+              <TextField
+                select
+                size="small"
+                label="Year"
+                value="2025"
+                sx={{ minWidth: 80, '& .MuiInputBase-root': { height: 32 } }}
+              >
+                <MenuItem value="2025">2025</MenuItem>
+                <MenuItem value="2024">2024</MenuItem>
+              </TextField>
+              
+              <TextField
+                select
+                size="small"
+                label="Quarter"
+                value="Q1"
+                sx={{ minWidth: 80, '& .MuiInputBase-root': { height: 32 } }}
+              >
+                <MenuItem value="Q1">Q1</MenuItem>
+                <MenuItem value="Q2">Q2</MenuItem>
+                <MenuItem value="Q3">Q3</MenuItem>
+                <MenuItem value="Q4">Q4</MenuItem>
+              </TextField>
+
+              <TextField
+                select
+                size="small"
+                label="Goal Type"
+                value="All"
+                sx={{ minWidth: 100, '& .MuiInputBase-root': { height: 32 } }}
+              >
+                <MenuItem value="All">All Goals</MenuItem>
+                <MenuItem value="Delivery">Delivery Targets</MenuItem>
+                <MenuItem value="Efficiency">Efficiency Goals</MenuItem>
+                <MenuItem value="Performance">Performance Metrics</MenuItem>
+              </TextField>
+
+              <TextField
+                select
+                size="small"
+                label="Status"
+                value="All"
+                sx={{ minWidth: 100, '& .MuiInputBase-root': { height: 32 } }}
+              >
+                <MenuItem value="All">All Status</MenuItem>
+                <MenuItem value="Met">Target Met</MenuItem>
+                <MenuItem value="Below">Below Target</MenuItem>
+                <MenuItem value="Exceeded">Exceeded Target</MenuItem>
+              </TextField>
+
+              <Button
+                variant="outlined"
+                size="small"
+                sx={{ 
+                  borderColor: '#02b5e7', 
+                  color: '#02b5e7',
+                  textTransform: 'none',
+                  fontWeight: 500,
+                  height: 32,
+                  px: 2
+                }}
+              >
+                Apply
+              </Button>
+
+              <Button
+                variant="text"
+                size="small"
+                sx={{ 
+                  color: '#666',
+                  textTransform: 'none',
+                  fontWeight: 500,
+                  height: 32,
+                  px: 1
+                }}
+              >
+                Clear
+              </Button>
+            </Box>
+          </Box>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={monthlyDeliveryData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
