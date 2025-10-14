@@ -192,6 +192,20 @@ const Sidebar: React.FC = () => {
                   primaryTypographyProps={{ fontSize: '13px' }}
                 />
               </ListItemButton>
+              <ListItemButton 
+                selected={isActive('/reporting/tv-intelligence')}
+                onClick={() => handleNavigation('/reporting/tv-intelligence')}
+                sx={{ py: 0.5, pl: 4 }}
+              >
+                <ListItemText 
+                  primary={
+                    <LabsRibbon>
+                      <span>TV Intelligence</span>
+                    </LabsRibbon>
+                  }
+                  primaryTypographyProps={{ fontSize: '13px' }}
+                />
+              </ListItemButton>
             </List>
           </Collapse>
 

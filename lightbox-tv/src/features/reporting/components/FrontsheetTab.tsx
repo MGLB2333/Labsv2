@@ -11,17 +11,17 @@ import {
   Paper,
   Chip,
   Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
   IconButton,
   Menu,
   MenuItem,
   ListItemIcon,
   ListItemText,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from '@mui/material';
-import { Close, BarChart, Download, Update, History, MoreVert } from '@mui/icons-material';
+import { Download, Update, History, MoreVert, Warning } from '@mui/icons-material';
 
 // Mock data based on the Excel spreadsheet
 const campaignData = {
@@ -57,7 +57,10 @@ const stationData = [
   { station: 'Ulster', audience: 'COA', budget: 0, valuePot: 0, total: 0, universe: 0, cpt: 0, discount: 0, discountedCpt: 0, secondLength: 0, premium: 0, affordedTvrs: 0, deliveredTa1: 0, diffTvrs: 0, deliveredTa2: 0, ta2Universe: 0, convToTa2: 0, plannedConv: 0, convDiff: 0, valueDelivered: 0, difference: 0 },
 ];
 
-const formatCurrency = (amount: number) => {
+const formatCurrency = (amount: number | undefined) => {
+  if (amount === undefined || amount === null || isNaN(amount)) {
+    return '£0.00';
+  }
   return new Intl.NumberFormat('en-GB', {
     style: 'currency',
     currency: 'GBP',
@@ -65,37 +68,32 @@ const formatCurrency = (amount: number) => {
   }).format(amount);
 };
 
-const formatNumber = (num: number, decimals = 2) => {
+const formatNumber = (num: number | undefined, decimals = 2) => {
+  if (num === undefined || num === null || isNaN(num)) {
+    return '0.00';
+  }
   return num.toFixed(decimals);
 };
 
 const FrontsheetTab: React.FC = () => {
-  const [audienceModalOpen, setAudienceModalOpen] = useState(false);
   const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
+  const [updateDialogOpen, setUpdateDialogOpen] = useState(false);
   const menuOpen = Boolean(menuAnchorEl);
 
   // Calculate totals
   const hpChData = stationData.filter(item => item.audience === 'HP+CH');
   const hpChTotals = {
-    budget: hpChData.reduce((sum, item) => sum + item.budget, 0),
-    valuePot: hpChData.reduce((sum, item) => sum + item.valuePot, 0),
-    total: hpChData.reduce((sum, item) => sum + item.total, 0),
-    universe: hpChData.reduce((sum, item) => sum + item.universe, 0),
-    affordedTvrs: hpChData.reduce((sum, item) => sum + item.affordedTvrs, 0),
-    deliveredTa1: hpChData.reduce((sum, item) => sum + item.deliveredTa1, 0),
-    diffTvrs: hpChData.reduce((sum, item) => sum + item.diffTvrs, 0),
-    deliveredTa2: hpChData.reduce((sum, item) => sum + item.deliveredTa2, 0),
-    ta2Universe: hpChData.reduce((sum, item) => sum + item.ta2Universe, 0),
-    valueDelivered: hpChData.reduce((sum, item) => sum + item.valueDelivered, 0),
-    difference: hpChData.reduce((sum, item) => sum + item.difference, 0),
-  };
-
-  const handleOpenAudienceModal = () => {
-    setAudienceModalOpen(true);
-  };
-
-  const handleCloseAudienceModal = () => {
-    setAudienceModalOpen(false);
+    budget: hpChData.reduce((sum, item) => sum + (item.budget || 0), 0),
+    valuePot: hpChData.reduce((sum, item) => sum + (item.valuePot || 0), 0),
+    total: hpChData.reduce((sum, item) => sum + (item.total || 0), 0),
+    universe: hpChData.reduce((sum, item) => sum + (item.universe || 0), 0),
+    affordedTvrs: hpChData.reduce((sum, item) => sum + (item.affordedTvrs || 0), 0),
+    deliveredTa1: hpChData.reduce((sum, item) => sum + (item.deliveredTa1 || 0), 0),
+    diffTvrs: hpChData.reduce((sum, item) => sum + (item.diffTvrs || 0), 0),
+    deliveredTa2: hpChData.reduce((sum, item) => sum + (item.deliveredTa2 || 0), 0),
+    ta2Universe: hpChData.reduce((sum, item) => sum + (item.ta2Universe || 0), 0),
+    valueDelivered: hpChData.reduce((sum, item) => sum + (item.valueDelivered || 0), 0),
+    difference: hpChData.reduce((sum, item) => sum + (item.difference || 0), 0),
   };
 
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -116,136 +114,174 @@ const FrontsheetTab: React.FC = () => {
     // Change log functionality here
   };
 
+  const handleUpdateData = () => {
+    setUpdateDialogOpen(true);
+  };
+
+  const handleCloseUpdateDialog = () => {
+    setUpdateDialogOpen(false);
+  };
 
   return (
     <Box>
-      {/* Campaign Details with Action Buttons */}
-      <Paper sx={{ p: 2, mb: 3, boxShadow: 'none', border: '1px solid #e0e0e0' }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
-          <Typography variant="h6" sx={{ fontSize: '14px', fontWeight: 600, color: '#333' }}>
+      {/* Campaign Details */}
+      <Box sx={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'flex-start', 
+        mb: 2,
+        p: 2,
+        backgroundColor: '#fff',
+        border: '1px solid #e0e0e0',
+        borderRadius: 1
+      }}>
+        <Box sx={{ flex: 1 }}>
+          <Typography variant="h6" sx={{ fontSize: '14px', fontWeight: 600, color: '#333', mb: 1 }}>
             Campaign Details
           </Typography>
-          <Box sx={{ display: 'flex', gap: 1 }}>
-            <Button
-              variant="outlined"
-              startIcon={<BarChart />}
-              onClick={handleOpenAudienceModal}
-              sx={{
-                textTransform: 'none',
-                fontSize: '11px',
-                fontWeight: 500,
-                px: 2,
-                py: 0.25,
-                borderColor: '#02b5e7',
-                color: '#02b5e7',
-                '&:hover': {
-                  borderColor: '#02b5e7',
-                  backgroundColor: 'rgba(2, 181, 231, 0.08)',
-                },
-              }}
-            >
-              Audience Summary
-            </Button>
-            <Button
-              variant="contained"
-              startIcon={<Update />}
-              sx={{
-                textTransform: 'none',
-                fontSize: '11px',
-                fontWeight: 600,
-                px: 2,
-                py: 0.25,
-                backgroundColor: '#02b5e7',
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mb: 2 }}>
+            <Box>
+              <Typography variant="body2" sx={{ fontSize: '10px', color: '#666', textTransform: 'uppercase', mb: 0.5 }}>
+                {campaignData.client}
+              </Typography>
+              <Typography variant="body2" sx={{ fontSize: '12px', fontWeight: 500 }}>
+                {campaignData.spend}
+              </Typography>
+            </Box>
+            <Box>
+              <Typography variant="body2" sx={{ fontSize: '10px', color: '#666', textTransform: 'uppercase', mb: 0.5 }}>
+                {campaignData.approvalDate}
+              </Typography>
+              <Typography variant="body2" sx={{ fontSize: '12px', fontWeight: 500 }}>
+                {campaignData.month}
+              </Typography>
+            </Box>
+            <Box>
+              <Typography variant="body2" sx={{ fontSize: '10px', color: '#666', textTransform: 'uppercase', mb: 0.5 }}>
+                {campaignData.ddsCode}
+              </Typography>
+              <Typography variant="body2" sx={{ fontSize: '12px', fontWeight: 500 }}>
+                Campaign Code
+              </Typography>
+            </Box>
+          </Box>
+          
+          <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Typography variant="body2" sx={{ fontSize: '11px', color: '#666' }}>
+                Budget:
+              </Typography>
+              <Typography variant="body2" sx={{ fontSize: '11px', fontWeight: 500 }}>
+                {formatCurrency(campaignData.budget)}
+              </Typography>
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Typography variant="body2" sx={{ fontSize: '11px', color: '#666' }}>
+                Value Pot:
+              </Typography>
+              <Typography variant="body2" sx={{ fontSize: '11px', fontWeight: 500 }}>
+                {formatCurrency(campaignData.valuePot)}
+              </Typography>
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Typography variant="body2" sx={{ fontSize: '11px', color: '#666' }}>
+                Total:
+              </Typography>
+              <Typography variant="body2" sx={{ fontSize: '11px', fontWeight: 500 }}>
+                {formatCurrency(campaignData.total)}
+              </Typography>
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Typography variant="body2" sx={{ fontSize: '11px', color: '#666' }}>
+                Value Delivered:
+              </Typography>
+              <Typography variant="body2" sx={{ fontSize: '11px', fontWeight: 500 }}>
+                {formatCurrency(campaignData.valueDelivered)}
+              </Typography>
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Typography variant="body2" sx={{ fontSize: '11px', color: '#666' }}>
+                Difference:
+              </Typography>
+              <Chip 
+                label={formatCurrency(campaignData.difference)} 
+                size="small" 
+                sx={{ 
+                  fontSize: '10px', 
+                  height: 20,
+                  backgroundColor: campaignData.difference >= 0 ? '#e8f5e8' : '#ffebee',
+                  color: campaignData.difference >= 0 ? '#2e7d32' : '#c62828',
+                  fontWeight: 500
+                }} 
+              />
+            </Box>
+          </Box>
+        </Box>
+        
+        <Box sx={{ display: 'flex', gap: 1 }}>
+          <Button
+            variant="contained"
+            startIcon={<Update />}
+            onClick={handleUpdateData}
+            sx={{
+              textTransform: 'none',
+              fontSize: '11px',
+              fontWeight: 500,
+              px: 2,
+              py: 0.25,
+              backgroundColor: '#02b5e7',
+              color: 'white',
+              '&:hover': {
+                backgroundColor: '#0295c7',
                 color: 'white',
-                '&:hover': {
-                  backgroundColor: '#02b5e7',
-                  opacity: 0.9,
-                },
-              }}
-            >
-              Update Data
-            </Button>
-            <IconButton
-              onClick={handleMenuClick}
-              sx={{
-                color: '#666',
-                border: '1px solid #e0e0e0',
-                borderRadius: 1,
-                '&:hover': {
-                  backgroundColor: 'rgba(2, 181, 231, 0.08)',
-                  color: '#02b5e7',
-                  borderColor: '#02b5e7',
-                },
-              }}
-            >
-              <MoreVert />
-            </IconButton>
-          </Box>
+              },
+            }}
+          >
+            Update Data
+          </Button>
+          <IconButton
+            onClick={handleMenuClick}
+            sx={{
+              border: '1px solid #e0e0e0',
+              borderRadius: 1,
+              p: 0.5,
+              '&:hover': {
+                backgroundColor: 'rgba(2, 181, 231, 0.08)',
+                borderColor: '#02b5e7',
+              },
+            }}
+          >
+            <MoreVert sx={{ fontSize: '16px', color: '#666' }} />
+          </IconButton>
         </Box>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
-          <Box sx={{ flex: '1 1 200px', minWidth: 200 }}>
-            <Typography variant="body2" sx={{ fontSize: '10px', color: '#666', mb: 0.5, textTransform: 'uppercase', fontWeight: 500 }}>
-              Client/Product
-            </Typography>
-            <Typography variant="body1" sx={{ fontSize: '11px', fontWeight: 600 }}>
-              {campaignData.client}
-            </Typography>
-          </Box>
-          <Box sx={{ flex: '1 1 200px', minWidth: 200 }}>
-            <Typography variant="body2" sx={{ fontSize: '10px', color: '#666', mb: 0.5, textTransform: 'uppercase', fontWeight: 500 }}>
-              Spend CTC
-            </Typography>
-            <Typography variant="body1" sx={{ fontSize: '11px', fontWeight: 600 }}>
-              {campaignData.spend}
-            </Typography>
-          </Box>
-          <Box sx={{ flex: '1 1 200px', minWidth: 200 }}>
-            <Typography variant="body2" sx={{ fontSize: '10px', color: '#666', mb: 0.5, textTransform: 'uppercase', fontWeight: 500 }}>
-              Approval Date
-            </Typography>
-            <Typography variant="body1" sx={{ fontSize: '11px', fontWeight: 600 }}>
-              {campaignData.approvalDate}
-            </Typography>
-          </Box>
-          <Box sx={{ flex: '1 1 200px', minWidth: 200 }}>
-            <Typography variant="body2" sx={{ fontSize: '10px', color: '#666', mb: 0.5, textTransform: 'uppercase', fontWeight: 500 }}>
-              Campaign Month
-            </Typography>
-            <Typography variant="body1" sx={{ fontSize: '11px', fontWeight: 600 }}>
-              {campaignData.month}
-            </Typography>
-          </Box>
-        </Box>
-      </Paper>
+      </Box>
 
-      {/* More Actions Menu */}
+      {/* Menu */}
       <Menu
         anchorEl={menuAnchorEl}
         open={menuOpen}
         onClose={handleMenuClose}
         PaperProps={{
           sx: {
-            borderRadius: 1,
             boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
             border: '1px solid #e0e0e0',
-            minWidth: 160,
+            borderRadius: 1,
+            minWidth: 150,
           },
         }}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleDownload} sx={{ py: 1 }}>
+        <MenuItem onClick={handleDownload}>
           <ListItemIcon>
-            <Download sx={{ fontSize: 18, color: '#666' }} />
+            <Download sx={{ fontSize: '16px', color: '#666' }} />
           </ListItemIcon>
           <ListItemText 
             primary="Download" 
             primaryTypographyProps={{ fontSize: '12px', fontWeight: 500 }}
           />
         </MenuItem>
-        <MenuItem onClick={handleChangeLog} sx={{ py: 1 }}>
+        <MenuItem onClick={handleChangeLog}>
           <ListItemIcon>
-            <History sx={{ fontSize: 18, color: '#666' }} />
+            <History sx={{ fontSize: '16px', color: '#666' }} />
           </ListItemIcon>
           <ListItemText 
             primary="Change Log" 
@@ -253,197 +289,6 @@ const FrontsheetTab: React.FC = () => {
           />
         </MenuItem>
       </Menu>
-
-      {/* Audience Summary Modal */}
-      <Dialog
-        open={audienceModalOpen}
-        onClose={handleCloseAudienceModal}
-        maxWidth="lg"
-        fullWidth
-        PaperProps={{
-          sx: {
-            borderRadius: 1,
-            boxShadow: 'none',
-            border: '1px solid #e0e0e0',
-            backgroundColor: '#f5f5f5',
-          },
-        }}
-      >
-        <DialogTitle sx={{ 
-          display: 'flex', 
-          justifyContent: 'space-between', 
-          alignItems: 'center',
-          p: 2,
-          pb: 1,
-          backgroundColor: '#fff',
-          borderBottom: '1px solid #e0e0e0',
-          fontSize: '16px',
-          fontWeight: 600,
-          color: '#333'
-        }}>
-          Weekly Audience Summary
-          <IconButton
-            onClick={handleCloseAudienceModal}
-            sx={{ 
-              color: '#666',
-              '&:hover': {
-                backgroundColor: 'rgba(2, 181, 231, 0.08)',
-                color: '#02b5e7',
-              },
-            }}
-          >
-            <Close />
-          </IconButton>
-        </DialogTitle>
-        
-        <DialogContent sx={{ p: 2, backgroundColor: '#f5f5f5' }}>
-          <Paper sx={{ boxShadow: 'none', border: '1px solid #e0e0e0', overflow: 'hidden' }}>
-            <TableContainer>
-              <Table size="small">
-                <TableHead>
-                  <TableRow sx={{ backgroundColor: '#f8f9fa' }}>
-                    <TableCell sx={{ fontSize: '10px', fontWeight: 600, textTransform: 'uppercase', color: '#666', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0' }}>
-                      Audience
-                    </TableCell>
-                    <TableCell sx={{ fontSize: '10px', fontWeight: 600, textTransform: 'uppercase', color: '#666', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0' }}>
-                      W/C
-                    </TableCell>
-                    <TableCell sx={{ fontSize: '10px', fontWeight: 600, textTransform: 'uppercase', color: '#666', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0' }}>
-                      ?
-                    </TableCell>
-                    <TableCell sx={{ fontSize: '10px', fontWeight: 600, textTransform: 'uppercase', color: '#666', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0' }}>
-                      ?
-                    </TableCell>
-                    <TableCell sx={{ fontSize: '10px', fontWeight: 600, textTransform: 'uppercase', color: '#666', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0' }}>
-                      ?
-                    </TableCell>
-                    <TableCell sx={{ fontSize: '10px', fontWeight: 600, textTransform: 'uppercase', color: '#666', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0' }}>
-                      ?
-                    </TableCell>
-                    <TableCell sx={{ fontSize: '10px', fontWeight: 600, textTransform: 'uppercase', color: '#666', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0' }}>
-                      ?
-                    </TableCell>
-                    <TableCell sx={{ fontSize: '10px', fontWeight: 600, textTransform: 'uppercase', color: '#666', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0' }}>
-                      Total
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {/* Primary Audience */}
-                  <TableRow>
-                    <TableCell sx={{ fontSize: '11px', fontWeight: 500, py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }} rowSpan={3}>
-                      Primary
-                    </TableCell>
-                    <TableCell sx={{ fontSize: '11px', fontWeight: 500, py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}>
-                      Planned
-                    </TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}></TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}></TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}></TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}></TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}></TableCell>
-                    <TableCell sx={{ fontSize: '11px', fontWeight: 500, py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}>
-                      0
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell sx={{ fontSize: '11px', fontWeight: 500, py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}>
-                      Delivered
-                    </TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}></TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}></TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}></TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}></TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}></TableCell>
-                    <TableCell sx={{ fontSize: '11px', fontWeight: 500, py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}>
-                      0
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell sx={{ fontSize: '11px', fontWeight: 500, py: 0.5, px: 1, backgroundColor: '#fff' }}>
-                      Difference
-                    </TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, backgroundColor: '#fff' }}>0</TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, backgroundColor: '#fff' }}>0</TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, backgroundColor: '#fff' }}>0</TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, backgroundColor: '#fff' }}>0</TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, backgroundColor: '#fff' }}>0</TableCell>
-                    <TableCell sx={{ fontSize: '11px', fontWeight: 500, py: 0.5, px: 1, backgroundColor: '#fff' }}>
-                      0
-                    </TableCell>
-                  </TableRow>
-                  
-                  {/* Secondary Audience */}
-                  <TableRow>
-                    <TableCell sx={{ fontSize: '11px', fontWeight: 500, py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }} rowSpan={3}>
-                      Secondary
-                    </TableCell>
-                    <TableCell sx={{ fontSize: '11px', fontWeight: 500, py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}>
-                      Planned
-                    </TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}></TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}></TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}></TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}></TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}></TableCell>
-                    <TableCell sx={{ fontSize: '11px', fontWeight: 500, py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}>
-                      0
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell sx={{ fontSize: '11px', fontWeight: 500, py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}>
-                      Delivered
-                    </TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}></TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}></TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}></TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}></TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}></TableCell>
-                    <TableCell sx={{ fontSize: '11px', fontWeight: 500, py: 0.5, px: 1, borderBottom: '1px solid #e0e0e0', backgroundColor: '#fff' }}>
-                      0
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell sx={{ fontSize: '11px', fontWeight: 500, py: 0.5, px: 1, backgroundColor: '#fff' }}>
-                      Difference
-                    </TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, backgroundColor: '#fff' }}>0</TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, backgroundColor: '#fff' }}>0</TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, backgroundColor: '#fff' }}>0</TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, backgroundColor: '#fff' }}>0</TableCell>
-                    <TableCell sx={{ fontSize: '11px', py: 0.5, px: 1, backgroundColor: '#fff' }}>0</TableCell>
-                    <TableCell sx={{ fontSize: '11px', fontWeight: 500, py: 0.5, px: 1, backgroundColor: '#fff' }}>
-                      0
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Paper>
-        </DialogContent>
-        
-        <DialogActions sx={{ p: 2, backgroundColor: '#fff', borderTop: '1px solid #e0e0e0' }}>
-          <Button
-            onClick={handleCloseAudienceModal}
-            variant="outlined"
-            sx={{
-              textTransform: 'none',
-              fontSize: '12px',
-              fontWeight: 500,
-              px: 3,
-              py: 0.5,
-              borderColor: '#e0e0e0',
-              color: '#666',
-              '&:hover': {
-                borderColor: '#02b5e7',
-                color: '#02b5e7',
-              },
-            }}
-          >
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
 
       {/* Main Data Table */}
       <TableContainer component={Paper} sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
@@ -456,344 +301,299 @@ const FrontsheetTab: React.FC = () => {
               <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 60 }}>
                 Audience
               </TableCell>
-              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 80 }}>
+              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 80, textAlign: 'right' }}>
                 Budget
               </TableCell>
-              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 80 }}>
+              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 80, textAlign: 'right' }}>
                 Value Pot
               </TableCell>
-              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 80 }}>
+              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 80, textAlign: 'right' }}>
                 Total
               </TableCell>
-              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 60 }}>
+              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 60, textAlign: 'right' }}>
                 Universe
               </TableCell>
-              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 60 }}>
+              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 50, textAlign: 'right' }}>
                 CPT
               </TableCell>
-              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 60 }}>
+              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 60, textAlign: 'right' }}>
                 Discount
               </TableCell>
-              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 80 }}>
-                Disc. CPT
+              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 80, textAlign: 'right' }}>
+                Discounted CPT
               </TableCell>
-              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 60 }}>
-                Sec Length
+              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 80, textAlign: 'right' }}>
+                Second Length
               </TableCell>
-              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 60 }}>
+              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 60, textAlign: 'right' }}>
                 Premium
               </TableCell>
-              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 80 }}>
+              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 80, textAlign: 'right' }}>
                 Afforded TVRs
               </TableCell>
-              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 80 }}>
-                Del. TA1 TVRs
+              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 80, textAlign: 'right' }}>
+                Delivered TA1
               </TableCell>
-              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 60 }}>
+              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 60, textAlign: 'right' }}>
                 Diff TVRs
               </TableCell>
-              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 80 }}>
-                Del. TA2 TVRs
+              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 80, textAlign: 'right' }}>
+                Delivered TA2
               </TableCell>
-              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 60 }}>
-                TA2 Univ
+              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 80, textAlign: 'right' }}>
+                TA2 Universe
               </TableCell>
-              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 60 }}>
-                Conv TA2
+              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 80, textAlign: 'right' }}>
+                Conv to TA2
               </TableCell>
-              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 60 }}>
-                Plan Conv
+              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 80, textAlign: 'right' }}>
+                Planned Conv
               </TableCell>
-              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 60 }}>
+              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 60, textAlign: 'right' }}>
                 Conv Diff
               </TableCell>
-              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 100 }}>
+              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 100, textAlign: 'right' }}>
                 Value Delivered
               </TableCell>
-              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 100 }}>
-                Difference (Inc VP)
+              <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 80, textAlign: 'right' }}>
+                Difference
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {/* HP+CH Section */}
-            {stationData.filter(item => item.audience === 'HP+CH').map((station, index) => (
-              <TableRow key={`hpch-${index}`} sx={{ '&:hover': { backgroundColor: '#f8f9fa' } }}>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px' }}>
-                  {station.station}
+            {stationData.map((row, index) => (
+              <TableRow key={index} hover sx={{ '&:hover': { backgroundColor: 'rgba(2, 181, 231, 0.04)' } }}>
+                <TableCell sx={{ fontSize: '11px', py: 0.5, fontWeight: 500 }}>
+                  {row.station}
                 </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px' }}>
-                  <Chip label={station.audience} size="small" sx={{ fontSize: '9px', height: 20 }} />
+                <TableCell sx={{ fontSize: '11px', py: 0.5 }}>
+                  {row.audience}
                 </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatCurrency(station.budget)}
+                <TableCell sx={{ fontSize: '11px', py: 0.5, textAlign: 'right' }}>
+                  {formatCurrency(row.budget)}
                 </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatCurrency(station.valuePot)}
+                <TableCell sx={{ fontSize: '11px', py: 0.5, textAlign: 'right' }}>
+                  {formatCurrency(row.valuePot)}
                 </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatCurrency(station.total)}
+                <TableCell sx={{ fontSize: '11px', py: 0.5, textAlign: 'right' }}>
+                  {formatCurrency(row.total)}
                 </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatNumber(station.universe)}
+                <TableCell sx={{ fontSize: '11px', py: 0.5, textAlign: 'right' }}>
+                  {formatNumber(row.universe)}
                 </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatCurrency(station.cpt)}
+                <TableCell sx={{ fontSize: '11px', py: 0.5, textAlign: 'right' }}>
+                  {formatNumber(row.cpt)}
                 </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatNumber(station.discount)}
+                <TableCell sx={{ fontSize: '11px', py: 0.5, textAlign: 'right' }}>
+                  {formatNumber(row.discount, 2)}
                 </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatCurrency(station.discountedCpt)}
+                <TableCell sx={{ fontSize: '11px', py: 0.5, textAlign: 'right' }}>
+                  {formatNumber(row.discountedCpt)}
                 </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatNumber(station.secondLength)}
+                <TableCell sx={{ fontSize: '11px', py: 0.5, textAlign: 'right' }}>
+                  {formatNumber(row.secondLength)}
                 </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {station.premium}
+                <TableCell sx={{ fontSize: '11px', py: 0.5, textAlign: 'right' }}>
+                  {formatNumber(row.premium)}
                 </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatNumber(station.affordedTvrs)}
+                <TableCell sx={{ fontSize: '11px', py: 0.5, textAlign: 'right' }}>
+                  {formatNumber(row.affordedTvrs)}
                 </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatNumber(station.deliveredTa1)}
-                </TableCell>
-                <TableCell sx={{ 
-                  borderBottom: '1px solid #e0e0e0', 
-                  py: 0.5, 
-                  fontSize: '10px', 
-                  textAlign: 'right',
-                  color: station.diffTvrs < 0 ? '#d32f2f' : station.diffTvrs > 0 ? '#2e7d32' : '#666',
-                  fontWeight: station.diffTvrs !== 0 ? 600 : 400
-                }}>
-                  {station.diffTvrs > 0 ? '+' : ''}{formatNumber(station.diffTvrs)}
-                </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatNumber(station.deliveredTa2)}
-                </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatNumber(station.ta2Universe)}
-                </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatNumber(station.convToTa2)}
-                </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatNumber(station.plannedConv)}
-                </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatNumber(station.convDiff)}
-                </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatCurrency(station.valueDelivered)}
+                <TableCell sx={{ fontSize: '11px', py: 0.5, textAlign: 'right' }}>
+                  {formatNumber(row.deliveredTa1)}
                 </TableCell>
                 <TableCell sx={{ 
-                  borderBottom: '1px solid #e0e0e0', 
+                  fontSize: '11px', 
                   py: 0.5, 
-                  fontSize: '10px', 
                   textAlign: 'right',
-                  color: station.difference < 0 ? '#d32f2f' : station.difference > 0 ? '#2e7d32' : '#666',
-                  fontWeight: station.difference !== 0 ? 600 : 400
+                  color: (row.diffTvrs || 0) >= 0 ? '#4caf50' : '#f44336',
+                  fontWeight: 500
                 }}>
-                  {station.difference > 0 ? '+' : ''}{formatCurrency(station.difference)}
+                  {(row.diffTvrs || 0) >= 0 ? '+' : ''}{formatNumber(row.diffTvrs)}
+                </TableCell>
+                <TableCell sx={{ fontSize: '11px', py: 0.5, textAlign: 'right' }}>
+                  {formatNumber(row.deliveredTa2)}
+                </TableCell>
+                <TableCell sx={{ fontSize: '11px', py: 0.5, textAlign: 'right' }}>
+                  {formatNumber(row.ta2Universe)}
+                </TableCell>
+                <TableCell sx={{ fontSize: '11px', py: 0.5, textAlign: 'right' }}>
+                  {formatNumber(row.convToTa2)}
+                </TableCell>
+                <TableCell sx={{ fontSize: '11px', py: 0.5, textAlign: 'right' }}>
+                  {formatNumber(row.plannedConv)}
+                </TableCell>
+                <TableCell sx={{ 
+                  fontSize: '11px', 
+                  py: 0.5, 
+                  textAlign: 'right',
+                  color: (row.convDiff || 0) >= 0 ? '#4caf50' : '#f44336',
+                  fontWeight: 500
+                }}>
+                  {(row.convDiff || 0) >= 0 ? '+' : ''}{formatNumber(row.convDiff)}
+                </TableCell>
+                <TableCell sx={{ fontSize: '11px', py: 0.5, textAlign: 'right' }}>
+                  {formatCurrency(row.valueDelivered)}
+                </TableCell>
+                <TableCell sx={{ 
+                  fontSize: '11px', 
+                  py: 0.5, 
+                  textAlign: 'right',
+                  color: (row.difference || 0) >= 0 ? '#4caf50' : '#f44336',
+                  fontWeight: 500
+                }}>
+                  {(row.difference || 0) >= 0 ? '+' : ''}{formatCurrency(row.difference)}
                 </TableCell>
               </TableRow>
             ))}
             
-            {/* HP+CH Subtotal */}
-            <TableRow sx={{ backgroundColor: '#f0f0f0', fontWeight: 600 }}>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', fontWeight: 600 }}>
-                HP+CH Subtotal
+            {/* Total Row */}
+            <TableRow sx={{ backgroundColor: '#f8f9fa', fontWeight: 600 }}>
+              <TableCell sx={{ fontSize: '11px', fontWeight: 600, py: 0.5, borderTop: '2px solid #e0e0e0' }}>
+                TOTAL
               </TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px' }}></TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right', fontWeight: 600 }}>
+              <TableCell sx={{ fontSize: '11px', py: 0.5, borderTop: '2px solid #e0e0e0' }}>
+                -
+              </TableCell>
+              <TableCell sx={{ fontSize: '11px', textAlign: 'right', py: 0.5, fontWeight: 600, borderTop: '2px solid #e0e0e0' }}>
                 {formatCurrency(hpChTotals.budget)}
               </TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right', fontWeight: 600 }}>
+              <TableCell sx={{ fontSize: '11px', textAlign: 'right', py: 0.5, fontWeight: 600, borderTop: '2px solid #e0e0e0' }}>
                 {formatCurrency(hpChTotals.valuePot)}
               </TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right', fontWeight: 600 }}>
+              <TableCell sx={{ fontSize: '11px', textAlign: 'right', py: 0.5, fontWeight: 600, borderTop: '2px solid #e0e0e0' }}>
                 {formatCurrency(hpChTotals.total)}
               </TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right', fontWeight: 600 }}>
+              <TableCell sx={{ fontSize: '11px', textAlign: 'right', py: 0.5, fontWeight: 600, borderTop: '2px solid #e0e0e0' }}>
                 {formatNumber(hpChTotals.universe)}
               </TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px' }}></TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px' }}></TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px' }}></TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px' }}></TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px' }}></TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right', fontWeight: 600 }}>
+              <TableCell sx={{ fontSize: '11px', textAlign: 'right', py: 0.5, fontWeight: 600, borderTop: '2px solid #e0e0e0' }}>
+                -
+              </TableCell>
+              <TableCell sx={{ fontSize: '11px', textAlign: 'right', py: 0.5, fontWeight: 600, borderTop: '2px solid #e0e0e0' }}>
+                -
+              </TableCell>
+              <TableCell sx={{ fontSize: '11px', textAlign: 'right', py: 0.5, fontWeight: 600, borderTop: '2px solid #e0e0e0' }}>
+                -
+              </TableCell>
+              <TableCell sx={{ fontSize: '11px', textAlign: 'right', py: 0.5, fontWeight: 600, borderTop: '2px solid #e0e0e0' }}>
+                -
+              </TableCell>
+              <TableCell sx={{ fontSize: '11px', textAlign: 'right', py: 0.5, fontWeight: 600, borderTop: '2px solid #e0e0e0' }}>
+                -
+              </TableCell>
+              <TableCell sx={{ fontSize: '11px', textAlign: 'right', py: 0.5, fontWeight: 600, borderTop: '2px solid #e0e0e0' }}>
                 {formatNumber(hpChTotals.affordedTvrs)}
               </TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right', fontWeight: 600 }}>
+              <TableCell sx={{ fontSize: '11px', textAlign: 'right', py: 0.5, fontWeight: 600, borderTop: '2px solid #e0e0e0' }}>
                 {formatNumber(hpChTotals.deliveredTa1)}
               </TableCell>
               <TableCell sx={{ 
-                borderBottom: '1px solid #e0e0e0', 
+                fontSize: '11px', 
+                textAlign: 'right', 
                 py: 0.5, 
-                fontSize: '10px', 
-                textAlign: 'right',
-                color: hpChTotals.diffTvrs < 0 ? '#d32f2f' : hpChTotals.diffTvrs > 0 ? '#2e7d32' : '#666',
-                fontWeight: 600
+                fontWeight: 600, 
+                borderTop: '2px solid #e0e0e0',
+                color: (hpChTotals.diffTvrs || 0) >= 0 ? '#4caf50' : '#f44336'
               }}>
-                {hpChTotals.diffTvrs > 0 ? '+' : ''}{formatNumber(hpChTotals.diffTvrs)}
+                {(hpChTotals.diffTvrs || 0) >= 0 ? '+' : ''}{formatNumber(hpChTotals.diffTvrs)}
               </TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right', fontWeight: 600 }}>
+              <TableCell sx={{ fontSize: '11px', textAlign: 'right', py: 0.5, fontWeight: 600, borderTop: '2px solid #e0e0e0' }}>
                 {formatNumber(hpChTotals.deliveredTa2)}
               </TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right', fontWeight: 600 }}>
+              <TableCell sx={{ fontSize: '11px', textAlign: 'right', py: 0.5, fontWeight: 600, borderTop: '2px solid #e0e0e0' }}>
                 {formatNumber(hpChTotals.ta2Universe)}
               </TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px' }}></TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px' }}></TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px' }}></TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right', fontWeight: 600 }}>
+              <TableCell sx={{ fontSize: '11px', textAlign: 'right', py: 0.5, fontWeight: 600, borderTop: '2px solid #e0e0e0' }}>
+                {formatNumber(hpChTotals.convToTa2)}
+              </TableCell>
+              <TableCell sx={{ fontSize: '11px', textAlign: 'right', py: 0.5, fontWeight: 600, borderTop: '2px solid #e0e0e0' }}>
+                {formatNumber(hpChTotals.plannedConv)}
+              </TableCell>
+              <TableCell sx={{ 
+                fontSize: '11px', 
+                textAlign: 'right', 
+                py: 0.5, 
+                fontWeight: 600, 
+                borderTop: '2px solid #e0e0e0',
+                color: (hpChTotals.convDiff || 0) >= 0 ? '#4caf50' : '#f44336'
+              }}>
+                {(hpChTotals.convDiff || 0) >= 0 ? '+' : ''}{formatNumber(hpChTotals.convDiff)}
+              </TableCell>
+              <TableCell sx={{ fontSize: '11px', textAlign: 'right', py: 0.5, fontWeight: 600, borderTop: '2px solid #e0e0e0' }}>
                 {formatCurrency(hpChTotals.valueDelivered)}
               </TableCell>
               <TableCell sx={{ 
-                borderBottom: '1px solid #e0e0e0', 
+                fontSize: '11px', 
+                textAlign: 'right', 
                 py: 0.5, 
-                fontSize: '10px', 
-                textAlign: 'right',
-                color: hpChTotals.difference < 0 ? '#d32f2f' : hpChTotals.difference > 0 ? '#2e7d32' : '#666',
-                fontWeight: 600
+                fontWeight: 600, 
+                borderTop: '2px solid #e0e0e0',
+                color: (hpChTotals.difference || 0) >= 0 ? '#4caf50' : '#f44336'
               }}>
-                {hpChTotals.difference > 0 ? '+' : ''}{formatCurrency(hpChTotals.difference)}
-              </TableCell>
-            </TableRow>
-
-            {/* COA Section */}
-            {stationData.filter(item => item.audience === 'COA').map((station, index) => (
-              <TableRow key={`coa-${index}`} sx={{ '&:hover': { backgroundColor: '#f8f9fa' } }}>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px' }}>
-                  {station.station}
-                </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px' }}>
-                  <Chip label={station.audience} size="small" sx={{ fontSize: '9px', height: 20, backgroundColor: '#e3f2fd' }} />
-                </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatCurrency(station.budget)}
-                </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatCurrency(station.valuePot)}
-                </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatCurrency(station.total)}
-                </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatNumber(station.universe)}
-                </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatCurrency(station.cpt)}
-                </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatNumber(station.discount)}
-                </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatCurrency(station.discountedCpt)}
-                </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatNumber(station.secondLength)}
-                </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {station.premium}
-                </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatNumber(station.affordedTvrs)}
-                </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatNumber(station.deliveredTa1)}
-                </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatNumber(station.diffTvrs)}
-                </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatNumber(station.deliveredTa2)}
-                </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatNumber(station.ta2Universe)}
-                </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatNumber(station.convToTa2)}
-                </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatNumber(station.plannedConv)}
-                </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatNumber(station.convDiff)}
-                </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatCurrency(station.valueDelivered)}
-                </TableCell>
-                <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right' }}>
-                  {formatCurrency(station.difference)}
-                </TableCell>
-              </TableRow>
-            ))}
-
-            {/* Grand Total */}
-            <TableRow sx={{ backgroundColor: '#e3f2fd', fontWeight: 600 }}>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', fontWeight: 600 }}>
-                Grand Total
-              </TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px' }}></TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right', fontWeight: 600 }}>
-                {formatCurrency(campaignData.budget)}
-              </TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right', fontWeight: 600 }}>
-                {formatCurrency(campaignData.valuePot)}
-              </TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right', fontWeight: 600 }}>
-                {formatCurrency(campaignData.total)}
-              </TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px' }}></TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px' }}></TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px' }}></TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px' }}></TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px' }}></TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px' }}></TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right', fontWeight: 600 }}>
-                {formatNumber(hpChTotals.affordedTvrs)}
-              </TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right', fontWeight: 600 }}>
-                {formatNumber(hpChTotals.deliveredTa1)}
-              </TableCell>
-              <TableCell sx={{ 
-                borderBottom: '1px solid #e0e0e0', 
-                py: 0.5, 
-                fontSize: '10px', 
-                textAlign: 'right',
-                color: hpChTotals.diffTvrs < 0 ? '#d32f2f' : hpChTotals.diffTvrs > 0 ? '#2e7d32' : '#666',
-                fontWeight: 600
-              }}>
-                {hpChTotals.diffTvrs > 0 ? '+' : ''}{formatNumber(hpChTotals.diffTvrs)}
-              </TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right', fontWeight: 600 }}>
-                {formatNumber(hpChTotals.deliveredTa2)}
-              </TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right', fontWeight: 600 }}>
-                {formatNumber(hpChTotals.ta2Universe)}
-              </TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px' }}></TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px' }}></TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px' }}></TableCell>
-              <TableCell sx={{ borderBottom: '1px solid #e0e0e0', py: 0.5, fontSize: '10px', textAlign: 'right', fontWeight: 600 }}>
-                {formatCurrency(campaignData.valueDelivered)}
-              </TableCell>
-              <TableCell sx={{ 
-                borderBottom: '1px solid #e0e0e0', 
-                py: 0.5, 
-                fontSize: '10px', 
-                textAlign: 'right',
-                color: campaignData.difference < 0 ? '#d32f2f' : campaignData.difference > 0 ? '#2e7d32' : '#666',
-                fontWeight: 600
-              }}>
-                {campaignData.difference > 0 ? '+' : ''}{formatCurrency(campaignData.difference)}
+                {(hpChTotals.difference || 0) >= 0 ? '+' : ''}{formatCurrency(hpChTotals.difference)}
               </TableCell>
             </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
+
+      {/* Update Data Dialog */}
+      <Dialog
+        open={updateDialogOpen}
+        onClose={handleCloseUpdateDialog}
+        maxWidth="sm"
+        fullWidth
+        PaperProps={{
+          sx: {
+            borderRadius: 2,
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
+          },
+        }}
+      >
+        <DialogTitle sx={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: 2,
+          pb: 1,
+          borderBottom: '1px solid #e0e0e0'
+        }}>
+          <Warning sx={{ color: '#ff9800', fontSize: '24px' }} />
+          <Typography variant="h6" sx={{ fontSize: '18px', fontWeight: 600, color: '#333' }}>
+            Labs Environment Notice
+          </Typography>
+        </DialogTitle>
+        
+        <DialogContent sx={{ pt: 3, pb: 2 }}>
+          <Typography variant="body1" sx={{ fontSize: '14px', color: '#666', lineHeight: 1.6, mb: 2 }}>
+            The API is currently disconnected in the Labs environment. Data updates are not available at this time.
+          </Typography>
+          <Typography variant="body2" sx={{ fontSize: '12px', color: '#999', fontStyle: 'italic' }}>
+            Please contact LightBoxTV support to access live data functionality.
+          </Typography>
+        </DialogContent>
+        
+        <DialogActions sx={{ p: 3, pt: 1 }}>
+          <Button
+            onClick={handleCloseUpdateDialog}
+            variant="contained"
+            sx={{
+              textTransform: 'none',
+              fontSize: '12px',
+              fontWeight: 500,
+              px: 3,
+              py: 1,
+              backgroundColor: '#02b5e7',
+              color: 'white',
+              '&:hover': {
+                backgroundColor: '#0295c7',
+              },
+            }}
+          >
+            Understood
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

@@ -7,6 +7,8 @@ import QualityTab from './components/QualityTab';
 import PremiumSpotsTab from './components/PremiumSpotsTab';
 import ReachBuildTab from './components/ReachBuildTab';
 import SpotDataTab from './components/SpotDataTab';
+import AudienceStationTab from './components/AudienceStationTab';
+import WeeklyStrikeWeightsTab from './components/WeeklyStrikeWeightsTab';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -116,6 +118,21 @@ const TvSpotAnalysisPage: React.FC = () => {
             }}
           />
           <Tab
+            label="Weekly Strike Weights"
+            sx={{
+              textTransform: 'none',
+              fontWeight: 500,
+              fontSize: '13px',
+              minHeight: 48,
+              '&.Mui-selected': {
+                color: '#02b5e7',
+              },
+              '&:not(.Mui-selected)': {
+                color: '#666',
+              },
+            }}
+          />
+          <Tab
             label="Quality"
             sx={{
               textTransform: 'none',
@@ -175,6 +192,21 @@ const TvSpotAnalysisPage: React.FC = () => {
               },
             }}
           />
+          <Tab
+            label="Audience/Station"
+            sx={{
+              textTransform: 'none',
+              fontWeight: 500,
+              fontSize: '13px',
+              minHeight: 48,
+              '&.Mui-selected': {
+                color: '#02b5e7',
+              },
+              '&:not(.Mui-selected)': {
+                color: '#666',
+              },
+            }}
+          />
         </Tabs>
       </Box>
 
@@ -183,16 +215,22 @@ const TvSpotAnalysisPage: React.FC = () => {
         <FrontsheetTab />
       </TabPanel>
       <TabPanel value={activeTab} index={1}>
-        <QualityTab />
+        <WeeklyStrikeWeightsTab />
       </TabPanel>
       <TabPanel value={activeTab} index={2}>
-        <PremiumSpotsTab />
+        <QualityTab />
       </TabPanel>
       <TabPanel value={activeTab} index={3}>
-        <ReachBuildTab />
+        <PremiumSpotsTab />
       </TabPanel>
       <TabPanel value={activeTab} index={4}>
+        <ReachBuildTab />
+      </TabPanel>
+      <TabPanel value={activeTab} index={5}>
         <SpotDataTab />
+      </TabPanel>
+      <TabPanel value={activeTab} index={6}>
+        <AudienceStationTab />
       </TabPanel>
     </Box>
   );

@@ -4,6 +4,7 @@ import DashboardPage from '@/features/dashboard/DashboardPage';
 import { AudiencesPage } from '@/features/audiences';
 import { CampaignAnalyticsPage, CustomReportsPage, TvSpotReportingPage } from '@/features/reporting';
 import TvSpotAnalysisPage from '@/features/reporting/TvSpotAnalysisPage';
+import TvIntelligencePage from '@/features/reporting/TvIntelligencePage';
 import CtvCinemaCampaignsPage from '@/features/campaigns/CtvCinemaCampaignsPage';
 import LinearDrtvCampaignsPage from '@/features/campaigns/LinearDrtvCampaignsPage';
 import LoginPage from '@/features/auth/LoginPage';
@@ -32,6 +33,7 @@ const AppRouter: React.FC = () => {
       <Route path="/reporting/custom-reports" element={<ProtectedRoute><CustomReportsPage /></ProtectedRoute>} />
       <Route path="/reporting/tv-spot" element={<ProtectedRoute><TvSpotReportingPage /></ProtectedRoute>} />
       <Route path="/reporting/tv-spot/:campaignId" element={<ProtectedRoute><TvSpotAnalysisPage /></ProtectedRoute>} />
+      <Route path="/reporting/tv-intelligence" element={<ProtectedRoute><TvIntelligencePage /></ProtectedRoute>} />
       <Route path="/whitelabel" element={<ProtectedRoute><WhitelabelPage /></ProtectedRoute>} />
       <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
     </Routes>
