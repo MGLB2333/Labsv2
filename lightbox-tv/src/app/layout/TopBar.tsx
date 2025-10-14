@@ -42,10 +42,21 @@ const TopBar: React.FC = () => {
         height: 56,
         zIndex: (theme) => theme.zIndex.drawer + 1,
         boxShadow: 'none',
+        '& .MuiToolbar-root': {
+          height: '56px !important',
+          minHeight: '56px !important',
+          maxHeight: '56px !important',
+          padding: '0 !important',
+          paddingLeft: '16px !important',
+          paddingRight: '16px !important',
+        }
       }}
     >
-      <Toolbar sx={{ height: 56, minHeight: 56, justifyContent: 'space-between', alignItems: 'center' }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', height: '100%' }}>
+      <Toolbar sx={{ 
+        justifyContent: 'space-between', 
+        alignItems: 'center' 
+      }}>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Box
             component="img"
             src="/LightBox_Custom_WhiteBlue.png"
@@ -55,8 +66,6 @@ const TopBar: React.FC = () => {
               width: 'auto',
               maxWidth: 120,
               objectFit: 'contain',
-              display: 'flex',
-              alignItems: 'center',
             }}
           />
           <Typography
@@ -68,9 +77,6 @@ const TopBar: React.FC = () => {
               marginLeft: 2,
               textTransform: 'uppercase',
               letterSpacing: '0.5px',
-              display: 'flex',
-              alignItems: 'center',
-              height: '100%',
             }}
           >
             Labs environment
