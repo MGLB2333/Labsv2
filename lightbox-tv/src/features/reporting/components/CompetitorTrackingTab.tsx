@@ -22,7 +22,6 @@ import {
   Link,
   Divider,
   IconButton,
-  Grid,
 } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
@@ -331,7 +330,7 @@ const CompetitorTrackingTab: React.FC = () => {
   };
 
   // Mock data for competitor details
-  const getCompetitorDetails = (brand: string) => {
+  const getCompetitorDetails = (_brand: string) => {
     const monthlyData = [
       { month: 'Jan', spend: 120000, reach: 45, impressions: 2300000 },
       { month: 'Feb', spend: 135000, reach: 52, impressions: 2600000 },
@@ -794,56 +793,54 @@ const CompetitorTrackingTab: React.FC = () => {
           {selectedCompetitorDetails && (
             <Box>
               {/* Summary Cards */}
-              <Grid container spacing={2} sx={{ mt: 2, mb: 4 }}>
-                <Grid item xs={12} sm={6} md={3}>
-                  <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0', height: '100%' }}>
-                    <CardContent sx={{ p: 3, textAlign: 'center', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                      <Typography variant="h6" sx={{ fontSize: '24px', fontWeight: 600, color: '#333', mb: 1 }}>
-                        {formatCurrency(selectedCompetitorDetails.estimatedSpend)}
-                      </Typography>
-                      <Typography variant="body2" sx={{ fontSize: '13px', color: '#666', fontWeight: 500 }}>
-                        Total Spend
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                  <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0', height: '100%' }}>
-                    <CardContent sx={{ p: 3, textAlign: 'center', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                      <Typography variant="h6" sx={{ fontSize: '24px', fontWeight: 600, color: '#333', mb: 1 }}>
-                        {formatNumber(selectedCompetitorDetails.delivery)} TVRs
-                      </Typography>
-                      <Typography variant="body2" sx={{ fontSize: '13px', color: '#666', fontWeight: 500 }}>
-                        Delivery
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                  <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0', height: '100%' }}>
-                    <CardContent sx={{ p: 3, textAlign: 'center', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                      <Typography variant="h6" sx={{ fontSize: '24px', fontWeight: 600, color: '#333', mb: 1 }}>
-                        {formatNumber(selectedCompetitorDetails.shareOfVoice)}%
-                      </Typography>
-                      <Typography variant="body2" sx={{ fontSize: '13px', color: '#666', fontWeight: 500 }}>
-                        Share of Voice
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                  <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0', height: '100%' }}>
-                    <CardContent sx={{ p: 3, textAlign: 'center', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                      <Typography variant="h6" sx={{ fontSize: '24px', fontWeight: 600, color: '#333', mb: 1 }}>
-                        {formatNumber(selectedCompetitorDetails.qualityScore)}
-                      </Typography>
-                      <Typography variant="body2" sx={{ fontSize: '13px', color: '#666', fontWeight: 500 }}>
-                        Quality Score
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-              </Grid>
+              <Box sx={{ 
+                display: 'grid', 
+                gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
+                gap: 2, 
+                mt: 2, 
+                mb: 4 
+              }}>
+                <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0', height: '100%' }}>
+                  <CardContent sx={{ p: 3, textAlign: 'center', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <Typography variant="h6" sx={{ fontSize: '24px', fontWeight: 600, color: '#333', mb: 1 }}>
+                      {formatCurrency(selectedCompetitorDetails.estimatedSpend)}
+                    </Typography>
+                    <Typography variant="body2" sx={{ fontSize: '13px', color: '#666', fontWeight: 500 }}>
+                      Total Spend
+                    </Typography>
+                  </CardContent>
+                </Card>
+                <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0', height: '100%' }}>
+                  <CardContent sx={{ p: 3, textAlign: 'center', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <Typography variant="h6" sx={{ fontSize: '24px', fontWeight: 600, color: '#333', mb: 1 }}>
+                      {formatNumber(selectedCompetitorDetails.delivery)} TVRs
+                    </Typography>
+                    <Typography variant="body2" sx={{ fontSize: '13px', color: '#666', fontWeight: 500 }}>
+                      Delivery
+                    </Typography>
+                  </CardContent>
+                </Card>
+                <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0', height: '100%' }}>
+                  <CardContent sx={{ p: 3, textAlign: 'center', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <Typography variant="h6" sx={{ fontSize: '24px', fontWeight: 600, color: '#333', mb: 1 }}>
+                      {formatNumber(selectedCompetitorDetails.shareOfVoice)}%
+                    </Typography>
+                    <Typography variant="body2" sx={{ fontSize: '13px', color: '#666', fontWeight: 500 }}>
+                      Share of Voice
+                    </Typography>
+                  </CardContent>
+                </Card>
+                <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0', height: '100%' }}>
+                  <CardContent sx={{ p: 3, textAlign: 'center', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <Typography variant="h6" sx={{ fontSize: '24px', fontWeight: 600, color: '#333', mb: 1 }}>
+                      {formatNumber(selectedCompetitorDetails.qualityScore)}
+                    </Typography>
+                    <Typography variant="body2" sx={{ fontSize: '13px', color: '#666', fontWeight: 500 }}>
+                      Quality Score
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Box>
 
               {/* Charts Row - Full Width */}
               <Box sx={{ mb: 4, width: '100%' }}>
