@@ -17,7 +17,6 @@ import {
   ToggleButtonGroup,
   InputAdornment,
 } from '@mui/material';
-import Grid from '@mui/material/Grid2';
 import { Search, TrendingUp, Visibility, Schedule, Star, TrendingDown } from '@mui/icons-material';
 
 // Mock data for top programming
@@ -304,80 +303,77 @@ const TopProgrammingTab: React.FC = () => {
       </Box>
 
       {/* Summary Cards */}
-      <Grid container spacing={2} sx={{ mb: 3 }}>
-        <Grid xs={12} sm={6} md={3}>
-          <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
-            <CardContent sx={{ p: 2 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                <Star sx={{ fontSize: '20px', color: '#ff9800', mr: 1 }} />
-                <Typography variant="body2" sx={{ fontSize: '12px', color: '#666', textTransform: 'uppercase' }}>
-                  Top Rated Show
-                </Typography>
-              </Box>
-              <Typography variant="h6" sx={{ fontSize: '16px', fontWeight: 600, color: '#333', mb: 0.5 }}>
-                Strictly Come Dancing
+      <Box sx={{ 
+        display: 'grid', 
+        gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
+        gap: 2, 
+        mb: 3 
+      }}>
+        <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
+          <CardContent sx={{ p: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+              <Star sx={{ fontSize: '20px', color: '#ff9800', mr: 1 }} />
+              <Typography variant="body2" sx={{ fontSize: '12px', color: '#666', textTransform: 'uppercase' }}>
+                Top Rated Show
               </Typography>
-              <Typography variant="body2" sx={{ fontSize: '12px', color: '#666' }}>
-                9.3/10 rating
+            </Box>
+            <Typography variant="h6" sx={{ fontSize: '16px', fontWeight: 600, color: '#333', mb: 0.5 }}>
+              Strictly Come Dancing
+            </Typography>
+            <Typography variant="body2" sx={{ fontSize: '12px', color: '#666' }}>
+              9.3/10 rating
+            </Typography>
+          </CardContent>
+        </Card>
+        <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
+          <CardContent sx={{ p: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+              <TrendingUp sx={{ fontSize: '20px', color: '#4caf50', mr: 1 }} />
+              <Typography variant="body2" sx={{ fontSize: '12px', color: '#666', textTransform: 'uppercase' }}>
+                Rising Shows
               </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid xs={12} sm={6} md={3}>
-          <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
-            <CardContent sx={{ p: 2 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                <TrendingUp sx={{ fontSize: '20px', color: '#4caf50', mr: 1 }} />
-                <Typography variant="body2" sx={{ fontSize: '12px', color: '#666', textTransform: 'uppercase' }}>
-                  Rising Shows
-                </Typography>
-              </Box>
-              <Typography variant="h6" sx={{ fontSize: '18px', fontWeight: 600, color: '#333' }}>
-                4
+            </Box>
+            <Typography variant="h6" sx={{ fontSize: '18px', fontWeight: 600, color: '#333' }}>
+              4
+            </Typography>
+            <Typography variant="body2" sx={{ fontSize: '12px', color: '#666' }}>
+              programmes trending up
+            </Typography>
+          </CardContent>
+        </Card>
+        <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
+          <CardContent sx={{ p: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+              <Visibility sx={{ fontSize: '20px', color: '#02b5e7', mr: 1 }} />
+              <Typography variant="body2" sx={{ fontSize: '12px', color: '#666', textTransform: 'uppercase' }}>
+                Highest Share
               </Typography>
-              <Typography variant="body2" sx={{ fontSize: '12px', color: '#666' }}>
-                programmes trending up
+            </Box>
+            <Typography variant="h6" sx={{ fontSize: '16px', fontWeight: 600, color: '#333', mb: 0.5 }}>
+              Strictly Come Dancing
+            </Typography>
+            <Typography variant="body2" sx={{ fontSize: '12px', color: '#666' }}>
+              45.6% share
+            </Typography>
+          </CardContent>
+        </Card>
+        <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
+          <CardContent sx={{ p: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+              <Schedule sx={{ fontSize: '20px', color: '#9c27b0', mr: 1 }} />
+              <Typography variant="body2" sx={{ fontSize: '12px', color: '#666', textTransform: 'uppercase' }}>
+                Under Radar
               </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid xs={12} sm={6} md={3}>
-          <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
-            <CardContent sx={{ p: 2 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                <Visibility sx={{ fontSize: '20px', color: '#02b5e7', mr: 1 }} />
-                <Typography variant="body2" sx={{ fontSize: '12px', color: '#666', textTransform: 'uppercase' }}>
-                  Highest Share
-                </Typography>
-              </Box>
-              <Typography variant="h6" sx={{ fontSize: '16px', fontWeight: 600, color: '#333', mb: 0.5 }}>
-                Strictly Come Dancing
-              </Typography>
-              <Typography variant="body2" sx={{ fontSize: '12px', color: '#666' }}>
-                45.6% share
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid xs={12} sm={6} md={3}>
-          <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
-            <CardContent sx={{ p: 2 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                <Schedule sx={{ fontSize: '20px', color: '#9c27b0', mr: 1 }} />
-                <Typography variant="body2" sx={{ fontSize: '12px', color: '#666', textTransform: 'uppercase' }}>
-                  Under Radar
-                </Typography>
-              </Box>
-              <Typography variant="h6" sx={{ fontSize: '18px', fontWeight: 600, color: '#333' }}>
-                2
-              </Typography>
-              <Typography variant="body2" sx={{ fontSize: '12px', color: '#666' }}>
-                hidden opportunities
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
+            </Box>
+            <Typography variant="h6" sx={{ fontSize: '18px', fontWeight: 600, color: '#333' }}>
+              2
+            </Typography>
+            <Typography variant="body2" sx={{ fontSize: '12px', color: '#666' }}>
+              hidden opportunities
+            </Typography>
+          </CardContent>
+        </Card>
+      </Box>
 
       {/* Programming Table */}
       <TableContainer component={Paper} sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>

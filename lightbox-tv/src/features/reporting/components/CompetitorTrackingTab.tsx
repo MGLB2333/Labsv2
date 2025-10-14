@@ -16,7 +16,6 @@ import {
   CardContent,
   InputAdornment,
 } from '@mui/material';
-import Grid from '@mui/material/Grid2';
 import { Search, Add, TrendingUp, TrendingDown, Visibility, Schedule } from '@mui/icons-material';
 
 // Mock data for competitor tracking
@@ -190,68 +189,65 @@ const CompetitorTrackingTab: React.FC = () => {
       </Box>
 
       {/* Summary Cards */}
-      <Grid container spacing={2} sx={{ mb: 3 }}>
-        <Grid xs={12} sm={6} md={3}>
-          <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
-            <CardContent sx={{ p: 2 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                <TrendingUp sx={{ fontSize: '20px', color: '#4caf50', mr: 1 }} />
-                <Typography variant="body2" sx={{ fontSize: '12px', color: '#666', textTransform: 'uppercase' }}>
-                  Avg Delivery Gap
-                </Typography>
-              </Box>
-              <Typography variant="h6" sx={{ fontSize: '18px', fontWeight: 600, color: '#333' }}>
-                +45.4 TVRs
+      <Box sx={{ 
+        display: 'grid', 
+        gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
+        gap: 2, 
+        mb: 3 
+      }}>
+        <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
+          <CardContent sx={{ p: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+              <TrendingUp sx={{ fontSize: '20px', color: '#4caf50', mr: 1 }} />
+              <Typography variant="body2" sx={{ fontSize: '12px', color: '#666', textTransform: 'uppercase' }}>
+                Avg Delivery Gap
               </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid xs={12} sm={6} md={3}>
-          <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
-            <CardContent sx={{ p: 2 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                <Visibility sx={{ fontSize: '20px', color: '#02b5e7', mr: 1 }} />
-                <Typography variant="body2" sx={{ fontSize: '12px', color: '#666', textTransform: 'uppercase' }}>
-                  Share of Voice Gap
-                </Typography>
-              </Box>
-              <Typography variant="h6" sx={{ fontSize: '18px', fontWeight: 600, color: '#333' }}>
-                +2.7%
+            </Box>
+            <Typography variant="h6" sx={{ fontSize: '18px', fontWeight: 600, color: '#333' }}>
+              +45.4 TVRs
+            </Typography>
+          </CardContent>
+        </Card>
+        <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
+          <CardContent sx={{ p: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+              <Visibility sx={{ fontSize: '20px', color: '#02b5e7', mr: 1 }} />
+              <Typography variant="body2" sx={{ fontSize: '12px', color: '#666', textTransform: 'uppercase' }}>
+                Share of Voice Gap
               </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid xs={12} sm={6} md={3}>
-          <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
-            <CardContent sx={{ p: 2 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                <Schedule sx={{ fontSize: '20px', color: '#ff9800', mr: 1 }} />
-                <Typography variant="body2" sx={{ fontSize: '12px', color: '#666', textTransform: 'uppercase' }}>
-                  Avg Spend Gap
-                </Typography>
-              </Box>
-              <Typography variant="h6" sx={{ fontSize: '18px', fontWeight: 600, color: '#333' }}>
-                +£225K
+            </Box>
+            <Typography variant="h6" sx={{ fontSize: '18px', fontWeight: 600, color: '#333' }}>
+              +2.7%
+            </Typography>
+          </CardContent>
+        </Card>
+        <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
+          <CardContent sx={{ p: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+              <Schedule sx={{ fontSize: '20px', color: '#ff9800', mr: 1 }} />
+              <Typography variant="body2" sx={{ fontSize: '12px', color: '#666', textTransform: 'uppercase' }}>
+                Avg Spend Gap
               </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid xs={12} sm={6} md={3}>
-          <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
-            <CardContent sx={{ p: 2 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                <TrendingDown sx={{ fontSize: '20px', color: '#f44336', mr: 1 }} />
-                <Typography variant="body2" sx={{ fontSize: '12px', color: '#666', textTransform: 'uppercase' }}>
-                  Quality Gap
-                </Typography>
-              </Box>
-              <Typography variant="h6" sx={{ fontSize: '18px', fontWeight: 600, color: '#333' }}>
-                +0.35
+            </Box>
+            <Typography variant="h6" sx={{ fontSize: '18px', fontWeight: 600, color: '#333' }}>
+              +£225K
+            </Typography>
+          </CardContent>
+        </Card>
+        <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
+          <CardContent sx={{ p: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+              <TrendingDown sx={{ fontSize: '20px', color: '#f44336', mr: 1 }} />
+              <Typography variant="body2" sx={{ fontSize: '12px', color: '#666', textTransform: 'uppercase' }}>
+                Quality Gap
               </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
+            </Box>
+            <Typography variant="h6" sx={{ fontSize: '18px', fontWeight: 600, color: '#333' }}>
+              +0.35
+            </Typography>
+          </CardContent>
+        </Card>
+      </Box>
 
       {/* Competitor Table */}
       <TableContainer component={Paper} sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
