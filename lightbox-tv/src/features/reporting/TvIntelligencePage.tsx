@@ -4,7 +4,6 @@ import {
   Typography,
   Tabs,
   Tab,
-  Paper,
 } from '@mui/material';
 import CompetitorTrackingTab from './components/CompetitorTrackingTab';
 import TopProgrammingTab from './components/TopProgrammingTab';
@@ -34,7 +33,7 @@ function TabPanel(props: TabPanelProps) {
 const TvIntelligencePage: React.FC = () => {
   const [activeTab, setActiveTab] = useState(0);
 
-  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue);
   };
 

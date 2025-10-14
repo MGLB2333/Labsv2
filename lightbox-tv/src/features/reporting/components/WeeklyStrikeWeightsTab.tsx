@@ -67,14 +67,6 @@ const weeklyStrikeWeightsData = {
   }
 };
 
-const formatCurrency = (amount: number) => {
-  return new Intl.NumberFormat('en-GB', {
-    style: 'currency',
-    currency: 'GBP',
-    minimumFractionDigits: 2,
-  }).format(amount);
-};
-
 const formatNumber = (num: number, decimals = 2) => {
   return num.toFixed(decimals);
 };

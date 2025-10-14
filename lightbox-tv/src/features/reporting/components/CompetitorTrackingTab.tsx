@@ -16,7 +16,6 @@ import {
   Card,
   CardContent,
   InputAdornment,
-  IconButton,
 } from '@mui/material';
 import { Search, Add, TrendingUp, TrendingDown, Visibility, Schedule } from '@mui/icons-material';
 
@@ -192,7 +191,7 @@ const CompetitorTrackingTab: React.FC = () => {
 
       {/* Summary Cards */}
       <Grid container spacing={2} sx={{ mb: 3 }}>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid xs={12} sm={6} md={3}>
           <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
             <CardContent sx={{ p: 2 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
@@ -207,7 +206,7 @@ const CompetitorTrackingTab: React.FC = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid xs={12} sm={6} md={3}>
           <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
             <CardContent sx={{ p: 2 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
@@ -222,7 +221,7 @@ const CompetitorTrackingTab: React.FC = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid xs={12} sm={6} md={3}>
           <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
             <CardContent sx={{ p: 2 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
@@ -237,7 +236,7 @@ const CompetitorTrackingTab: React.FC = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid xs={12} sm={6} md={3}>
           <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
             <CardContent sx={{ p: 2 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>

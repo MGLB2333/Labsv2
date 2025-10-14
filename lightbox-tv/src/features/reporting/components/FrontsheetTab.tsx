@@ -92,6 +92,9 @@ const FrontsheetTab: React.FC = () => {
     diffTvrs: hpChData.reduce((sum, item) => sum + (item.diffTvrs || 0), 0),
     deliveredTa2: hpChData.reduce((sum, item) => sum + (item.deliveredTa2 || 0), 0),
     ta2Universe: hpChData.reduce((sum, item) => sum + (item.ta2Universe || 0), 0),
+    convToTa2: hpChData.reduce((sum, item) => sum + (item.convToTa2 || 0), 0),
+    plannedConv: hpChData.reduce((sum, item) => sum + (item.plannedConv || 0), 0),
+    convDiff: hpChData.reduce((sum, item) => sum + (item.convDiff || 0), 0),
     valueDelivered: hpChData.reduce((sum, item) => sum + (item.valueDelivered || 0), 0),
     difference: hpChData.reduce((sum, item) => sum + (item.difference || 0), 0),
   };

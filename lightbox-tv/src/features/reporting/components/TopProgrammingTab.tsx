@@ -10,7 +10,6 @@ import {
   TableRow,
   Paper,
   TextField,
-  Button,
   Chip,
   Grid,
   Card,
@@ -18,7 +17,6 @@ import {
   ToggleButton,
   ToggleButtonGroup,
   InputAdornment,
-  IconButton,
 } from '@mui/material';
 import { Search, TrendingUp, Visibility, Schedule, Star, TrendingDown } from '@mui/icons-material';
 
@@ -191,7 +189,7 @@ const TopProgrammingTab: React.FC = () => {
   const [selectedStation, setSelectedStation] = useState('All');
   const [selectedAudience, setSelectedAudience] = useState('All');
   const [viewMode, setViewMode] = useState('all');
-  const [sortBy, setSortBy] = useState('rating');
+  const [sortBy] = useState('rating');
 
   const stations = ['All', 'ITV', 'BBC One', 'BBC Two', 'Channel 4', 'Channel 5', 'ITV2', 'Sky One', 'Netflix'];
   const audiences = ['All', 'Adults 16-34', 'Adults 25-44', 'Adults 35-54', 'Adults 45-64', 'Adults 16-54', 'Adults 25-54'];
@@ -295,7 +293,7 @@ const TopProgrammingTab: React.FC = () => {
         <ToggleButtonGroup
           value={viewMode}
           exclusive
-          onChange={(e, newValue) => newValue && setViewMode(newValue)}
+          onChange={(_e, newValue) => newValue && setViewMode(newValue)}
           size="small"
         >
           <ToggleButton value="all">All</ToggleButton>
@@ -307,7 +305,7 @@ const TopProgrammingTab: React.FC = () => {
 
       {/* Summary Cards */}
       <Grid container spacing={2} sx={{ mb: 3 }}>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid xs={12} sm={6} md={3}>
           <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
             <CardContent sx={{ p: 2 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
@@ -325,7 +323,7 @@ const TopProgrammingTab: React.FC = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid xs={12} sm={6} md={3}>
           <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
             <CardContent sx={{ p: 2 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
@@ -343,7 +341,7 @@ const TopProgrammingTab: React.FC = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid xs={12} sm={6} md={3}>
           <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
             <CardContent sx={{ p: 2 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
@@ -361,7 +359,7 @@ const TopProgrammingTab: React.FC = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid xs={12} sm={6} md={3}>
           <Card sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
             <CardContent sx={{ p: 2 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
