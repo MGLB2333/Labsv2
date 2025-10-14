@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLogo } from '@/contexts/LogoContext';
 import {
   Box,
   Typography,
@@ -19,7 +20,7 @@ import { CheckCircle, Palette, Close, Info } from '@mui/icons-material';
 
 const WhitelabelPage: React.FC = () => {
   const navigate = useNavigate();
-  const [selectedLogo, setSelectedLogo] = useState('default');
+  const { selectedLogo, setSelectedLogo } = useLogo();
   const [requirementsModalOpen, setRequirementsModalOpen] = useState(false);
 
   console.log('WhitelabelPage rendered');
@@ -29,8 +30,8 @@ const WhitelabelPage: React.FC = () => {
   };
 
   const handleSaveChanges = () => {
-    // Save logo selection logic here
-    console.log('Selected logo:', selectedLogo);
+    // Logo selection is already saved in context, just navigate back
+    console.log('Selected logo saved:', selectedLogo);
     navigate(-1);
   };
 
@@ -148,6 +149,78 @@ const WhitelabelPage: React.FC = () => {
                   </Typography>
                   <Typography variant="body2" sx={{ fontSize: '11px', color: '#666', lineHeight: 1.4 }}>
                     Use the standard LightBoxTV branding and logo
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Box>
+
+          {/* 7stars Logo */}
+          <Box sx={{ flex: '1 1 300px', minWidth: 300 }}>
+            <Card
+              sx={{
+                border: selectedLogo === '7stars' ? '2px solid #02b5e7' : '1px solid #e0e0e0',
+                borderRadius: 2,
+                backgroundColor: selectedLogo === '7stars' ? 'rgba(2, 181, 231, 0.02)' : '#fff',
+                transition: 'all 0.2s ease',
+                '&:hover': {
+                  borderColor: '#02b5e7',
+                  backgroundColor: 'rgba(2, 181, 231, 0.02)',
+                },
+              }}
+            >
+              <CardActionArea onClick={() => handleLogoSelect('7stars')}>
+                <CardContent sx={{ p: 3, textAlign: 'center' }}>
+                  <Box sx={{ position: 'relative', mb: 2 }}>
+                    <Box
+                      sx={{
+                        height: 50,
+                        width: '100%',
+                        backgroundColor: '#000',
+                        borderRadius: 1,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        p: 1,
+                      }}
+                    >
+                      <Box
+                        component="img"
+                        src="/512px-The7stars_Logo.png"
+                        alt="7stars Logo"
+                        sx={{
+                          height: 40,
+                          width: 'auto',
+                          maxWidth: '100%',
+                          objectFit: 'contain',
+                        }}
+                      />
+                    </Box>
+                    {selectedLogo === '7stars' && (
+                      <Chip
+                        icon={<CheckCircle />}
+                        label="Selected"
+                        size="small"
+                        sx={{
+                          position: 'absolute',
+                          top: -8,
+                          right: -8,
+                          backgroundColor: '#02b5e7',
+                          color: 'white',
+                          fontSize: '10px',
+                          height: 20,
+                          '& .MuiChip-icon': {
+                            fontSize: 14,
+                          },
+                        }}
+                      />
+                    )}
+                  </Box>
+                  <Typography variant="h6" sx={{ fontSize: '14px', fontWeight: 600, color: '#333', mb: 1 }}>
+                    7stars Logo
+                  </Typography>
+                  <Typography variant="body2" sx={{ fontSize: '11px', color: '#666', lineHeight: 1.4 }}>
+                    Use the 7stars agency branding and logo
                   </Typography>
                 </CardContent>
               </CardActionArea>

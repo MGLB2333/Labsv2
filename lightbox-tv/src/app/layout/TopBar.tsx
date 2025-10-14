@@ -2,11 +2,24 @@ import React, { useState, useRef, useEffect } from 'react';
 import { AppBar, Toolbar, Avatar, Box, Typography } from '@mui/material';
 import UserDropdown from './UserDropdown';
 import { useAuth } from '@/app/providers/AuthProvider';
+import { useLogo } from '@/contexts/LogoContext';
 
 const TopBar: React.FC = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const avatarRef = useRef<HTMLDivElement>(null);
   const { user } = useAuth();
+  const { selectedLogo } = useLogo();
+
+  const getLogoSource = () => {
+    switch (selectedLogo) {
+      case '7stars':
+        return '/512px-The7stars_Logo.png';
+      case 'custom':
+        return '/LightBox_Custom_WhiteBlue.png'; // Fallback to default for now
+      default:
+        return '/LightBox_Custom_WhiteBlue.png';
+    }
+  };
 
   const handleAvatarClick = () => {
     setDropdownOpen(!dropdownOpen);
@@ -59,8 +72,8 @@ const TopBar: React.FC = () => {
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Box
             component="img"
-            src="/LightBox_Custom_WhiteBlue.png"
-            alt="LightBoxTV"
+            src={getLogoSource()}
+            alt={selectedLogo === '7stars' ? '7stars' : 'LightBoxTV'}
             sx={{
               height: 28,
               width: 'auto',

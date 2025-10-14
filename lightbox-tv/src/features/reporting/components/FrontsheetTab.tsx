@@ -20,6 +20,7 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  Divider,
 } from '@mui/material';
 import { Download, Update, History, MoreVert, Warning } from '@mui/icons-material';
 
@@ -167,6 +168,11 @@ const FrontsheetTab: React.FC = () => {
                 Campaign Code
               </Typography>
             </Box>
+          </Box>
+          
+          {/* Horizontal Divider */}
+          <Box sx={{ width: '100%', my: 2 }}>
+            <Divider />
           </Box>
           
           <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>

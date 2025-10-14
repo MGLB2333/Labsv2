@@ -7,6 +7,7 @@ import { CssBaseline } from '@mui/material';
 import { theme } from './theme';
 import { SupabaseProvider } from './providers/SupabaseProvider';
 import { AuthProvider } from './providers/AuthProvider';
+import { LogoProvider } from '../contexts/LogoContext';
 import AppLayout from './layout/AppLayout';
 import AppRouter from './router';
 
@@ -17,10 +18,12 @@ const App: React.FC = () => {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <SupabaseProvider>
             <AuthProvider>
-              <CssBaseline />
-              <AppLayout>
-                <AppRouter />
-              </AppLayout>
+              <LogoProvider>
+                <CssBaseline />
+                <AppLayout>
+                  <AppRouter />
+                </AppLayout>
+              </LogoProvider>
             </AuthProvider>
           </SupabaseProvider>
         </LocalizationProvider>
