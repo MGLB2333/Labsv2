@@ -12,11 +12,11 @@ import {
   TextField,
   Button,
   Chip,
-  Grid,
   Card,
   CardContent,
   InputAdornment,
 } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { Search, Add, TrendingUp, TrendingDown, Visibility, Schedule } from '@mui/icons-material';
 
 // Mock data for competitor tracking

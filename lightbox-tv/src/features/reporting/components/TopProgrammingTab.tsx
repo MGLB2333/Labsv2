@@ -11,13 +11,13 @@ import {
   Paper,
   TextField,
   Chip,
-  Grid,
   Card,
   CardContent,
   ToggleButton,
   ToggleButtonGroup,
   InputAdornment,
 } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { Search, TrendingUp, Visibility, Schedule, Star, TrendingDown } from '@mui/icons-material';
 
 // Mock data for top programming
@@ -231,7 +231,7 @@ const TopProgrammingTab: React.FC = () => {
     return trend === 'up' ? <TrendingUp sx={{ fontSize: '14px' }} /> : <TrendingDown sx={{ fontSize: '14px' }} />;
   };
 
-  const getTrendColor = (trend: string, value: number) => {
+  const getTrendColor = (trend: string, _value: number) => {
     if (trend === 'up') return '#4caf50';
     return '#f44336';
   };
