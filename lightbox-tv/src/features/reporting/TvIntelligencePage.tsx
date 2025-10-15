@@ -6,7 +6,7 @@ import {
   Tab,
 } from '@mui/material';
 import CompetitorTrackingTab from './components/CompetitorTrackingTab';
-import TopProgrammingTab from './components/TopProgrammingTab';
+import BrandAnalysisTab from './components/BrandAnalysisTab';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -75,7 +75,7 @@ const TvIntelligencePage: React.FC = () => {
             }}
           />
           <Tab
-            label="Top Programming"
+            label="Brand Analysis"
             sx={{
               textTransform: 'none',
               fontWeight: 500,
@@ -97,7 +97,7 @@ const TvIntelligencePage: React.FC = () => {
         <CompetitorTrackingTab />
       </TabPanel>
       <TabPanel value={activeTab} index={1}>
-        <TopProgrammingTab />
+        <BrandAnalysisTab />
       </TabPanel>
     </Box>
   );

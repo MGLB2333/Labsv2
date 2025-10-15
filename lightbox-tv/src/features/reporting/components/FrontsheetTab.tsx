@@ -22,7 +22,7 @@ import {
   DialogActions,
   Divider,
 } from '@mui/material';
-import { Download, Update, History, MoreVert, Warning } from '@mui/icons-material';
+import { Download, Update, History, MoreVert, Warning, Image } from '@mui/icons-material';
 
 // Mock data based on the Excel spreadsheet
 const campaignData = {
@@ -58,6 +58,55 @@ const stationData = [
   { station: 'Ulster', audience: 'COA', budget: 0, valuePot: 0, total: 0, universe: 0, cpt: 0, discount: 0, discountedCpt: 0, secondLength: 0, premium: 0, affordedTvrs: 0, deliveredTa1: 0, diffTvrs: 0, deliveredTa2: 0, ta2Universe: 0, convToTa2: 0, plannedConv: 0, convDiff: 0, valueDelivered: 0, difference: 0 },
 ];
 
+// Mock data for previous report editions
+const reportEditions = [
+  {
+    id: 1,
+    version: 'v2.1',
+    date: '2025-01-15',
+    time: '14:30',
+    author: 'John Smith',
+    changes: 'Updated audience data and station performance metrics',
+    status: 'Published'
+  },
+  {
+    id: 2,
+    version: 'v2.0',
+    date: '2025-01-10',
+    time: '09:15',
+    author: 'Sarah Johnson',
+    changes: 'Major revision with new BARB data integration',
+    status: 'Published'
+  },
+  {
+    id: 3,
+    version: 'v1.9',
+    date: '2025-01-05',
+    time: '16:45',
+    author: 'Mike Wilson',
+    changes: 'Fixed calculation errors in frequency distribution',
+    status: 'Published'
+  },
+  {
+    id: 4,
+    version: 'v1.8',
+    date: '2024-12-28',
+    time: '11:20',
+    author: 'Emma Davis',
+    changes: 'Added new station coverage and updated reach metrics',
+    status: 'Published'
+  },
+  {
+    id: 5,
+    version: 'v1.7',
+    date: '2024-12-20',
+    time: '13:10',
+    author: 'Tom Brown',
+    changes: 'Initial campaign setup and baseline metrics',
+    status: 'Published'
+  }
+];
+
 const formatCurrency = (amount: number | undefined) => {
   if (amount === undefined || amount === null || isNaN(amount)) {
     return '£0.00';
@@ -79,6 +128,7 @@ const formatNumber = (num: number | undefined, decimals = 2) => {
 const FrontsheetTab: React.FC = () => {
   const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
   const [updateDialogOpen, setUpdateDialogOpen] = useState(false);
+  const [changeLogDialogOpen, setChangeLogDialogOpen] = useState(false);
   const menuOpen = Boolean(menuAnchorEl);
 
   // Calculate totals
@@ -108,14 +158,103 @@ const FrontsheetTab: React.FC = () => {
     setMenuAnchorEl(null);
   };
 
-  const handleDownload = () => {
+  const handleDownloadCSV = () => {
     handleMenuClose();
-    // Download functionality here
+    
+    // Prepare CSV data
+    const csvData = [
+      // Headers
+      ['Station', 'Audience', 'Budget', 'Value Pot', 'Total', 'Universe', 'CPT', 'Discount', 'Discounted CPT', 'Second Length', 'Premium', 'Afforded TVRs', 'Delivered TA1', 'Diff TVRs', 'Delivered TA2', 'TA2 Universe', 'Conv to TA2', 'Planned Conv', 'Conv Diff', 'Value Delivered', 'Difference'],
+      // Data rows
+      ...stationData.map(item => [
+        item.station,
+        item.audience,
+        formatCurrency(item.budget),
+        formatCurrency(item.valuePot),
+        formatCurrency(item.total),
+        formatNumber(item.universe),
+        formatCurrency(item.cpt),
+        formatNumber(item.discount),
+        formatCurrency(item.discountedCpt),
+        formatNumber(item.secondLength),
+        formatNumber(item.premium),
+        formatNumber(item.affordedTvrs),
+        formatNumber(item.deliveredTa1),
+        formatNumber(item.diffTvrs),
+        formatNumber(item.deliveredTa2),
+        formatNumber(item.ta2Universe),
+        formatNumber(item.convToTa2),
+        formatNumber(item.plannedConv),
+        formatNumber(item.convDiff),
+        formatCurrency(item.valueDelivered),
+        formatCurrency(item.difference)
+      ])
+    ];
+
+    // Convert to CSV string
+    const csvString = csvData.map(row => 
+      row.map(cell => `"${cell}"`).join(',')
+    ).join('\n');
+
+    // Create and download file
+    const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `frontsheet-report-${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleDownloadImage = () => {
+    handleMenuClose();
+    
+    // Find the table element
+    const tableElement = document.querySelector('[data-table="frontsheet"]') as HTMLElement;
+    if (!tableElement) {
+      console.error('Table element not found');
+      return;
+    }
+
+    // Use html2canvas to convert table to image
+    import('html2canvas').then(html2canvas => {
+      html2canvas.default(tableElement, {
+        backgroundColor: '#ffffff',
+        scale: 2, // Higher resolution
+        useCORS: true,
+        allowTaint: true,
+        logging: false,
+        width: tableElement.scrollWidth,
+        height: tableElement.scrollHeight,
+      }).then(canvas => {
+        // Convert canvas to blob
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `frontsheet-report-${new Date().toISOString().split('T')[0]}.png`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          }
+        }, 'image/png');
+      }).catch(error => {
+        console.error('Error generating image:', error);
+        alert('Error generating image. Please try again.');
+      });
+    }).catch(error => {
+      console.error('Error loading html2canvas:', error);
+      alert('Image download feature is not available. Please use CSV download instead.');
+    });
   };
 
   const handleChangeLog = () => {
     handleMenuClose();
-    // Change log functionality here
+    setChangeLogDialogOpen(true);
   };
 
   const handleUpdateData = () => {
@@ -124,6 +263,10 @@ const FrontsheetTab: React.FC = () => {
 
   const handleCloseUpdateDialog = () => {
     setUpdateDialogOpen(false);
+  };
+
+  const handleCloseChangeLogDialog = () => {
+    setChangeLogDialogOpen(false);
   };
 
   return (
@@ -279,12 +422,21 @@ const FrontsheetTab: React.FC = () => {
           },
         }}
       >
-        <MenuItem onClick={handleDownload}>
+        <MenuItem onClick={handleDownloadCSV}>
           <ListItemIcon>
             <Download sx={{ fontSize: '16px', color: '#666' }} />
           </ListItemIcon>
           <ListItemText 
-            primary="Download" 
+            primary="Download CSV" 
+            primaryTypographyProps={{ fontSize: '12px', fontWeight: 500 }}
+          />
+        </MenuItem>
+        <MenuItem onClick={handleDownloadImage}>
+          <ListItemIcon>
+            <Image sx={{ fontSize: '16px', color: '#666' }} />
+          </ListItemIcon>
+          <ListItemText 
+            primary="Download Image" 
             primaryTypographyProps={{ fontSize: '12px', fontWeight: 500 }}
           />
         </MenuItem>
@@ -301,7 +453,7 @@ const FrontsheetTab: React.FC = () => {
 
       {/* Main Data Table */}
       <TableContainer component={Paper} sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
-        <Table size="small">
+        <Table size="small" data-table="frontsheet">
           <TableHead>
             <TableRow sx={{ backgroundColor: '#f8f9fa' }}>
               <TableCell sx={{ fontWeight: 600, fontSize: '9px', textTransform: 'uppercase', color: '#666', borderBottom: '1px solid #e0e0e0', py: 0.5, minWidth: 80 }}>
@@ -573,7 +725,7 @@ const FrontsheetTab: React.FC = () => {
           </Typography>
         </DialogTitle>
         
-        <DialogContent sx={{ pt: 3, pb: 2 }}>
+        <DialogContent sx={{ pt: 4, pb: 2 }}>
           <Typography variant="body1" sx={{ fontSize: '14px', color: '#666', lineHeight: 1.6, mb: 2 }}>
             The API is currently disconnected in the Labs environment. Data updates are not available at this time.
           </Typography>
@@ -600,6 +752,112 @@ const FrontsheetTab: React.FC = () => {
             }}
           >
             Understood
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Change Log Dialog */}
+      <Dialog
+        open={changeLogDialogOpen}
+        onClose={handleCloseChangeLogDialog}
+        maxWidth="md"
+        fullWidth
+        PaperProps={{
+          sx: {
+            borderRadius: 2,
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
+          },
+        }}
+      >
+        <DialogTitle sx={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: 2,
+          pb: 1,
+          borderBottom: '1px solid #e0e0e0'
+        }}>
+          <History sx={{ color: '#02b5e7', fontSize: '24px' }} />
+          <Typography variant="h6" sx={{ fontSize: '18px', fontWeight: 600, color: '#333' }}>
+            Report Change Log
+          </Typography>
+        </DialogTitle>
+        
+        <DialogContent sx={{ pt: 3, pb: 2 }}>
+          <Typography variant="body2" sx={{ fontSize: '12px', color: '#666', mb: 3 }}>
+            Select a previous edition of the report to view its details.
+          </Typography>
+          
+          <Box sx={{ maxHeight: 400, overflowY: 'auto' }}>
+            {reportEditions.map((edition) => (
+              <Box key={edition.id}>
+                <Box
+                  sx={{
+                    p: 2,
+                    border: '1px solid #e0e0e0',
+                    borderRadius: 1,
+                    mb: 1,
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    '&:hover': {
+                      borderColor: '#02b5e7',
+                      backgroundColor: 'rgba(2, 181, 231, 0.02)',
+                    },
+                  }}
+                >
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Typography variant="body1" sx={{ fontSize: '14px', fontWeight: 600, color: '#333' }}>
+                        {edition.version}
+                      </Typography>
+                      <Chip
+                        label={edition.status}
+                        size="small"
+                        sx={{
+                          fontSize: '10px',
+                          height: 20,
+                          backgroundColor: '#e8f5e8',
+                          color: '#2e7d32',
+                          fontWeight: 500
+                        }}
+                      />
+                    </Box>
+                    <Typography variant="body2" sx={{ fontSize: '11px', color: '#666' }}>
+                      {edition.date} at {edition.time}
+                    </Typography>
+                  </Box>
+                  
+                  <Typography variant="body2" sx={{ fontSize: '12px', color: '#666', mb: 1 }}>
+                    <strong>Author:</strong> {edition.author}
+                  </Typography>
+                  
+                  <Typography variant="body2" sx={{ fontSize: '12px', color: '#333', lineHeight: 1.4 }}>
+                    {edition.changes}
+                  </Typography>
+                </Box>
+              </Box>
+            ))}
+          </Box>
+        </DialogContent>
+        
+        <DialogActions sx={{ p: 3, pt: 1 }}>
+          <Button
+            onClick={handleCloseChangeLogDialog}
+            variant="outlined"
+            sx={{
+              textTransform: 'none',
+              fontSize: '12px',
+              fontWeight: 500,
+              px: 3,
+              py: 1,
+              borderColor: '#e0e0e0',
+              color: '#666',
+              '&:hover': {
+                borderColor: '#02b5e7',
+                color: '#02b5e7',
+              },
+            }}
+          >
+            Close
           </Button>
         </DialogActions>
       </Dialog>

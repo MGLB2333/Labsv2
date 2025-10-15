@@ -99,7 +99,7 @@ const TvSpotReportingPage: React.FC = () => {
       case 'Completed':
         return '#2196f3';
       case 'Draft':
-        return '#ff9800';
+        return '#9e9e9e';
       default:
         return '#666';
     }
