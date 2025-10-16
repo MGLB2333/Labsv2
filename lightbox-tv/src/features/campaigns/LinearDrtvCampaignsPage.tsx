@@ -3,8 +3,61 @@ import { Box, Typography, Button } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import CampaignTable from './components/CampaignTable';
 
-// Empty mock data to show "No campaigns found" state
-const mockLinearDrtvCampaigns: any[] = [];
+// Mock data for Linear TV campaigns (converted from TV Spot Reporting data)
+const mockLinearDrtvCampaigns = [
+  {
+    id: '1',
+    status: 'active' as const,
+    campaignName: 'AA ItsOK DRTV Vampires',
+    mediaType: 'Linear TV',
+    agency: 'the7stars',
+    client: 'A A AUTOMOBILE ASS',
+    brand: '',
+    budget: 500000.00,
+    startDate: 'Oct 01, 2025',
+    endDate: 'Oct 31, 2025',
+    clientLead: 'Demo account',
+  },
+  {
+    id: '2',
+    status: 'completed' as const,
+    campaignName: 'Autumn 20 HFSS',
+    mediaType: 'Linear TV',
+    agency: 'the7stars',
+    client: 'ICELAND FROZEN FOODS',
+    brand: '',
+    budget: 750000.00,
+    startDate: 'Oct 01, 2025',
+    endDate: 'Oct 31, 2025',
+    clientLead: 'Demo account',
+  },
+  {
+    id: '3',
+    status: 'completed' as const,
+    campaignName: 'Coral New Season Football Reward Shaker',
+    mediaType: 'Linear TV',
+    agency: 'the7stars',
+    client: 'CORAL INTERACTIVE',
+    brand: '',
+    budget: 300000.00,
+    startDate: 'Oct 01, 2025',
+    endDate: 'Oct 31, 2025',
+    clientLead: 'Demo account',
+  },
+  {
+    id: '4',
+    status: 'pending' as const,
+    campaignName: 'Gousto Brand 30 Brand Film',
+    mediaType: 'Linear TV',
+    agency: 'the7stars',
+    client: 'GOUSTO',
+    brand: '',
+    budget: 150000.00,
+    startDate: 'Oct 01, 2025',
+    endDate: 'Oct 31, 2025',
+    clientLead: 'Demo account',
+  },
+];
 
 const LinearDrtvCampaignsPage: React.FC = () => {
   return (

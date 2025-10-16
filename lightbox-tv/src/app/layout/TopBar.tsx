@@ -14,8 +14,6 @@ const TopBar: React.FC = () => {
     switch (selectedLogo) {
       case '7stars':
         return '/512px-The7stars_Logo.png';
-      case 'dentsu':
-        return '/DentsuTotalTVlogo (1).png';
       case 'custom':
         return '/LightBox_Custom_WhiteBlue.png'; // Fallback to default for now
       default:
