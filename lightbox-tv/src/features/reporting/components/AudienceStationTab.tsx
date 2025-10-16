@@ -229,7 +229,7 @@ const AudienceStationTab: React.FC = () => {
                 textTransform: 'uppercase', 
                 color: '#666', 
                 borderBottom: '1px solid #e0e0e0', 
-                py: 1,
+                py: 0.5,
                 minWidth: 150,
                 width: 150,
                 position: 'sticky',
@@ -248,7 +248,7 @@ const AudienceStationTab: React.FC = () => {
                     textTransform: 'uppercase', 
                     color: '#666', 
                     borderBottom: '1px solid #e0e0e0', 
-                    py: 1,
+                    py: 0.5,
                     textAlign: 'center',
                     minWidth: 80,
                     width: 80
@@ -273,7 +273,7 @@ const AudienceStationTab: React.FC = () => {
                 <TableCell sx={{ 
                   fontSize: '12px', 
                   fontWeight: 500, 
-                  py: 1,
+                  py: 0.5,
                   position: 'sticky',
                   left: 0,
                   backgroundColor: 'white',
@@ -299,7 +299,7 @@ const AudienceStationTab: React.FC = () => {
                         sx={{ 
                           fontSize: '11px', 
                           textAlign: 'center', 
-                          py: 1,
+                          py: 0.5,
                           backgroundColor,
                           minWidth: 80,
                           width: 80,
