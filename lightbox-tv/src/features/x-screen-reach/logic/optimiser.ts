@@ -1,4 +1,4 @@
-import type { OptimiseInput, OptimiseOutput, OptimiseMove, Allocation } from '../types';
+import type { OptimiseInput, OptimiseOutput, OptimiseMove } from '../types';
 import { forecastReach } from './reach';
 import { constraints } from '../mockData';
 import { publishers } from '../mockData';

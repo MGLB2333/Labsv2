@@ -11,7 +11,7 @@ import {
   Chip,
 } from '@mui/material';
 import { TrendingUp } from '@mui/icons-material';
-import type { OptimiseMove, OptimiseOutput } from '../types';
+import type { OptimiseOutput } from '../types';
 import { publishers } from '../mockData';
 
 interface RecommendationsPanelProps {

@@ -7,10 +7,8 @@ import {
   TextField,
   IconButton,
   Chip,
-  Avatar,
   Button,
   Link,
-  Divider,
   Modal,
   CircularProgress,
   Checkbox,
@@ -22,7 +20,6 @@ import {
 } from '@mui/material';
 import {
   Send,
-  SmartToy,
   AutoAwesome,
   CheckCircle,
   RadioButtonUnchecked,
@@ -31,16 +28,12 @@ import {
   Analytics,
   Inventory,
   Close,
-  Remove,
-  Fullscreen,
-  Refresh,
   ExpandMore,
   ExpandLess,
   Settings,
   Assessment,
   ArrowBack,
   CalendarToday,
-  AccessTime,
 } from '@mui/icons-material';
 
 interface Message {
@@ -91,13 +84,8 @@ const AiAssistantPage: React.FC = () => {
     budget: '£30,000',
   });
   const [budgetType, setBudgetType] = useState('Total Budget');
-  const [startTime, setStartTime] = useState('12:00 AM');
-  const [timezone, setTimezone] = useState('Mountain Time');
-  const [hasEndDate, setHasEndDate] = useState(false);
-  const [goal, setGoal] = useState('Clicks');
   const [openRationaleModal, setOpenRationaleModal] = useState(false);
   const [selectedRationale, setSelectedRationale] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
   const [loadingSectionId, setLoadingSectionId] = useState<string | null>(null);
   const [isBuildingCampaign, setIsBuildingCampaign] = useState(false);
   const [selectedKPIs, setSelectedKPIs] = useState<string[]>([]);
@@ -436,7 +424,6 @@ const AiAssistantPage: React.FC = () => {
     };
 
     // Show thinking process with checklist
-    setIsLoading(true);
     const thinkingSteps = getThinkingSteps(sectionIdToLoad);
     const thinkingMessageId = `thinking-${Date.now()}`;
     const thinkingMessage: Message = {
@@ -491,7 +478,6 @@ const AiAssistantPage: React.FC = () => {
     const totalTime = thinkingSteps.length * 1000 + 500;
     setTimeout(() => {
       clearInterval(stepInterval);
-      setIsLoading(false);
       setLoadingSectionId(null);
       // Mark all thinking steps as completed instead of removing
       setMessages((prev) =>
@@ -683,124 +669,6 @@ const AiAssistantPage: React.FC = () => {
     }
   };
 
-  const updateSectionCompletion = (input: string) => {
-    const lowerInput = input.toLowerCase();
-    
-    setSections((prev) =>
-      prev.map((section) => {
-        let shouldComplete = false;
-        
-        switch (section.id) {
-          case 'campaign':
-            shouldComplete = 
-              lowerInput.includes('campaign') ||
-              lowerInput.includes('objective') ||
-              lowerInput.includes('goal') ||
-              lowerInput.includes('budget') ||
-              lowerInput.includes('client') ||
-              lowerInput.includes('brand') ||
-              lowerInput.includes('£') ||
-              lowerInput.includes('$');
-            break;
-          case 'audience':
-            shouldComplete =
-              lowerInput.includes('audience') ||
-              lowerInput.includes('target') ||
-              lowerInput.includes('demographic') ||
-              lowerInput.includes('viewer') ||
-              lowerInput.includes('people') ||
-              lowerInput.includes('consumer');
-            break;
-          case 'measurement':
-            shouldComplete =
-              lowerInput.includes('measurement') ||
-              lowerInput.includes('metric') ||
-              lowerInput.includes('kpi') ||
-              lowerInput.includes('roi') ||
-              lowerInput.includes('reach') ||
-              lowerInput.includes('impression');
-            break;
-          case 'inventory':
-            shouldComplete =
-              lowerInput.includes('inventory') ||
-              lowerInput.includes('channel') ||
-              lowerInput.includes('platform') ||
-              lowerInput.includes('network') ||
-              lowerInput.includes('tv') ||
-              lowerInput.includes('ctv');
-            break;
-        }
-        
-        if (shouldComplete && !section.completed) {
-          return { ...section, completed: true };
-        }
-        return section;
-      })
-    );
-  };
-
-  const updatePlanDetails = (input: string) => {
-    // Mock logic to extract and update plan details
-    const newDetails: MediaPlanDetail[] = [];
-    
-    if (input.toLowerCase().includes('budget') || input.toLowerCase().includes('£') || input.toLowerCase().includes('$')) {
-      const budgetMatch = input.match(/[\d,]+/);
-      if (budgetMatch) {
-        newDetails.push({
-          id: 'budget-1',
-          label: 'Total Budget',
-          value: `£${budgetMatch[0]}`,
-          category: 'budget',
-        });
-      }
-    }
-
-    if (input.toLowerCase().includes('audience') || input.toLowerCase().includes('target')) {
-      newDetails.push({
-        id: 'audience-1',
-        label: 'Target Audience',
-        value: 'Extracted from conversation',
-        category: 'audience',
-      });
-    }
-
-    if (input.toLowerCase().includes('duration') || input.toLowerCase().includes('weeks') || input.toLowerCase().includes('months')) {
-      newDetails.push({
-        id: 'timing-1',
-        label: 'Campaign Duration',
-        value: 'Extracted from conversation',
-        category: 'timing',
-      });
-    }
-
-    setPlanDetails((prev) => {
-      const updated = [...prev];
-      newDetails.forEach((detail) => {
-        const existingIndex = updated.findIndex((d) => d.id === detail.id);
-        if (existingIndex >= 0) {
-          updated[existingIndex] = detail;
-        } else {
-          updated.push(detail);
-        }
-      });
-      return updated;
-    });
-  };
-
-  const getCategoryColor = (category: string) => {
-    switch (category) {
-      case 'budget':
-        return '#02b5e7';
-      case 'timing':
-        return '#4caf50';
-      case 'audience':
-        return '#ff9800';
-      case 'channels':
-        return '#9c27b0';
-      default:
-        return '#666';
-    }
-  };
 
   // Welcome Screen - Before conversation starts
   if (!hasStartedChatting) {
@@ -2893,7 +2761,7 @@ const AiAssistantPage: React.FC = () => {
                               fontStyle: 'italic',
                             }}
                           >
-                            {section.id === 'audience' && audienceQuestionDisplay ? audienceQuestionDisplay : section.question}
+                            {section.question}
                           </Typography>
                     </Box>
                       )}
@@ -3391,7 +3259,7 @@ const AiAssistantPage: React.FC = () => {
                 // Process the answer and mark section as completed
                 const answerToShow = `Selected ${selectedKPIs.length} KPIs`;
                 setSections((prev) =>
-                  prev.map((section, index) => {
+                  prev.map((section) => {
                     if (section.id === 'kpis') {
                       return { ...section, completed: true, answer: answerToShow };
                     }

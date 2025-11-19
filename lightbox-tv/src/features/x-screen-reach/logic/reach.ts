@@ -1,4 +1,4 @@
-import type { ForecastInput, ForecastOutput, Allocation, PairOverlap, CurveParams, Publisher, Market, Target } from '../types';
+import type { ForecastInput, ForecastOutput, PairOverlap, CurveParams, Publisher } from '../types';
 import { markets, targets, publishers, curveParams, pairOverlaps } from '../mockData';
 
 /**
@@ -57,7 +57,7 @@ function calculateDeduplicatedReach(
  * This is a simplified calculation that doesn't require full forecast recalculation
  */
 function calculateMarginalCpir(
-  publisherId: string,
+  _publisherId: string,
   spend: number,
   publisher: Publisher,
   curve: CurveParams,
