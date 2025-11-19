@@ -21,7 +21,7 @@ const HomePage: React.FC = () => {
       </Box>
 
       <Grid container spacing={4}>
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Card>
             <AutoAwesome sx={{ fontSize: 40, color: '#02b5e7', mb: 2 }} />
             <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
@@ -44,7 +44,7 @@ const HomePage: React.FC = () => {
           </Card>
         </Grid>
         
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Card>
             <Assessment sx={{ fontSize: 40, color: '#02b5e7', mb: 2 }} />
             <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
@@ -64,7 +64,7 @@ const HomePage: React.FC = () => {
           </Card>
         </Grid>
         
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Card>
             <TrendingUp sx={{ fontSize: 40, color: '#02b5e7', mb: 2 }} />
             <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>

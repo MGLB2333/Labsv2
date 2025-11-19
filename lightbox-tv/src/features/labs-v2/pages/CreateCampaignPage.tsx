@@ -8,7 +8,6 @@ import {
   Grid,
   ToggleButton,
   ToggleButtonGroup,
-  Paper,
   Divider,
 } from '@mui/material';
 import { AutoAwesome, AttachMoney } from '@mui/icons-material';
@@ -69,13 +68,13 @@ const CreateCampaignPage: React.FC = () => {
 
       <Card>
         <Grid container spacing={4}>
-          <Grid item xs={12}>
+          <Grid size={12}>
             <Typography variant="h6" sx={{ fontWeight: 600, mb: 3, color: '#333' }}>
               Campaign Details
             </Typography>
           </Grid>
           
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <TextField
               fullWidth
               label="Campaign Name"
@@ -87,7 +86,7 @@ const CreateCampaignPage: React.FC = () => {
             />
           </Grid>
           
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <TextField
               fullWidth
               label="Advertiser"
@@ -99,7 +98,7 @@ const CreateCampaignPage: React.FC = () => {
             />
           </Grid>
           
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <TextField
               fullWidth
               label="Start Date"
@@ -111,7 +110,7 @@ const CreateCampaignPage: React.FC = () => {
             />
           </Grid>
           
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <TextField
               fullWidth
               label="End Date"
@@ -123,17 +122,17 @@ const CreateCampaignPage: React.FC = () => {
             />
           </Grid>
           
-          <Grid item xs={12}>
+          <Grid size={12}>
             <Divider sx={{ my: 2 }} />
           </Grid>
           
-          <Grid item xs={12}>
+          <Grid size={12}>
             <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: '#333' }}>
               Budget & Planning
             </Typography>
           </Grid>
           
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <TextField
               fullWidth
               label={`Total Budget`}
@@ -151,7 +150,7 @@ const CreateCampaignPage: React.FC = () => {
             />
           </Grid>
           
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Typography variant="body2" sx={{ mb: 1.5, fontWeight: 500, color: '#333' }}>
               Planning Mode
             </Typography>
@@ -209,11 +208,11 @@ const CreateCampaignPage: React.FC = () => {
             </Typography>
           </Grid>
           
-          <Grid item xs={12}>
+          <Grid size={12}>
             <Divider sx={{ my: 2 }} />
           </Grid>
           
-          <Grid item xs={12}>
+          <Grid size={12}>
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
               <Button
                 variant="outlined"

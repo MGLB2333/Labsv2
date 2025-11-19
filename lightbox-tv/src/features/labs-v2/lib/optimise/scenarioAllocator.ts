@@ -1,6 +1,5 @@
 import type { Campaign, Scenario } from '../../types';
 import { greedyAllocate } from './greedyAllocator';
-import { channels } from '../../mocks/channels';
 import { getChannelsByMarket } from '../../mocks/channels';
 
 export const scenarioAllocate = (

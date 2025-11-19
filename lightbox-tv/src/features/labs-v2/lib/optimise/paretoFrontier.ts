@@ -5,8 +5,8 @@ export interface ParetoPoint {
 }
 
 export const generateParetoFrontier = (
-  reachWeight: number,
-  efficiencyWeight: number,
+  _reachWeight: number,
+  _efficiencyWeight: number,
   maxPoints: number = 10
 ): ParetoPoint[] => {
   // Mock Pareto frontier generation

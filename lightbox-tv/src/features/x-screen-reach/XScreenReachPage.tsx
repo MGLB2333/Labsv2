@@ -252,7 +252,7 @@ const XScreenReachPage: React.FC = () => {
 
       <TabPanel value={activeTab} index={1}>
         <Grid container spacing={2} sx={{ maxWidth: 1400, mx: 'auto' }}>
-          <Grid item xs={12} md={5}>
+          <Grid size={{ xs: 12, md: 5 }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, height: '100%' }}>
               {forecast && (
                 <Box sx={{ flex: '0 0 auto' }}>
@@ -271,7 +271,7 @@ const XScreenReachPage: React.FC = () => {
               )}
             </Box>
           </Grid>
-          <Grid item xs={12} md={7}>
+          <Grid size={{ xs: 12, md: 7 }}>
             {forecast && (
               <Box sx={{ height: '100%' }}>
                 <PublisherBreakdown forecast={forecast} />

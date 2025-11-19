@@ -25,6 +25,8 @@ export interface KPISelection {
   direction: 'maximize' | 'minimize';
 }
 
+import type { DemographicProfile } from './audience';
+
 export interface AudienceSelection {
   id: string;
   name: string;
@@ -32,14 +34,7 @@ export interface AudienceSelection {
   fitScores?: Record<string, number>; // channelId -> fit score
 }
 
-export interface DemographicProfile {
-  ageMin?: number;
-  ageMax?: number;
-  gender?: 'male' | 'female' | 'all';
-  income?: string;
-  location?: string[];
-  interests?: string[];
-}
+// DemographicProfile is exported from './audience'
 
 export interface FormatSelection {
   id: string;

@@ -6,7 +6,6 @@ import { Card } from '../components/common/Card';
 import { PageHeader } from '../components/layout/PageHeader';
 import { EmptyState } from '../components/common/EmptyState';
 import { useCampaignStore } from '../store/campaignStore';
-import { formatCurrency } from '../lib/utils/currency';
 
 const OptimiserPage: React.FC = () => {
   const navigate = useNavigate();
@@ -41,7 +40,7 @@ const OptimiserPage: React.FC = () => {
       />
 
       <Grid container spacing={3}>
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Card title="Optimisation Scenarios">
             <Typography variant="body2" sx={{ color: '#666', mb: 2 }}>
               Choose a scenario to see how budget allocation changes based on your goals
@@ -92,7 +91,7 @@ const OptimiserPage: React.FC = () => {
           </Card>
         </Grid>
         
-        <Grid item xs={12} md={8}>
+        <Grid size={{ xs: 12, md: 8 }}>
           <Card title="Optimisation Results">
             {selectedScenario ? (
               <Box>

@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 import { produce } from 'immer';
 import type { Campaign, ChannelAllocation, KPISelection, Scenario } from '../types';
-import { getDefaultMarket } from '../lib/utils/market';
 
 interface CampaignState {
   currentCampaign: Campaign | null;

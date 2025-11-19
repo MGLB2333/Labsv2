@@ -85,7 +85,7 @@ const AiAssistantPage: React.FC = () => {
   });
   const [budgetType, setBudgetType] = useState('Total Budget');
   const [openRationaleModal, setOpenRationaleModal] = useState(false);
-  const [selectedRationale, setSelectedRationale] = useState('');
+  const [selectedRationale] = useState('');
   const [loadingSectionId, setLoadingSectionId] = useState<string | null>(null);
   const [isBuildingCampaign, setIsBuildingCampaign] = useState(false);
   const [selectedKPIs, setSelectedKPIs] = useState<string[]>([]);

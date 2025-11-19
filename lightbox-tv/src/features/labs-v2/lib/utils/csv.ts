@@ -38,7 +38,7 @@ export const parseCSV = <T>(csvString: string): Promise<T[]> => {
       complete: (results) => {
         resolve(results.data);
       },
-      error: (error) => {
+      error: (error: Error) => {
         reject(error);
       },
     });

@@ -24,7 +24,7 @@ const RFCard: React.FC<RFCardProps> = ({ reach1p, reach3p, avgFreq, cpir }) => {
         Key Metrics
       </Typography>
       <Grid container spacing={2}>
-        <Grid item xs={6}>
+        <Grid size={6}>
           <Box>
             <Typography variant="caption" sx={{ color: '#666', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               Reach 1+
@@ -34,7 +34,7 @@ const RFCard: React.FC<RFCardProps> = ({ reach1p, reach3p, avgFreq, cpir }) => {
             </Typography>
           </Box>
         </Grid>
-        <Grid item xs={6}>
+        <Grid size={6}>
           <Box>
             <Typography variant="caption" sx={{ color: '#666', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               Reach 3+
@@ -44,7 +44,7 @@ const RFCard: React.FC<RFCardProps> = ({ reach1p, reach3p, avgFreq, cpir }) => {
             </Typography>
           </Box>
         </Grid>
-        <Grid item xs={6}>
+        <Grid size={6}>
           <Box>
             <Typography variant="caption" sx={{ color: '#666', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               Avg Frequency
@@ -54,7 +54,7 @@ const RFCard: React.FC<RFCardProps> = ({ reach1p, reach3p, avgFreq, cpir }) => {
             </Typography>
           </Box>
         </Grid>
-        <Grid item xs={6}>
+        <Grid size={6}>
           <Box>
             <Typography variant="caption" sx={{ color: '#666', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               CPiR

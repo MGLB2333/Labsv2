@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography, Button, Grid, Chip, Divider } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { TrendingUp, CalendarToday, AttachMoney, AutoAwesome } from '@mui/icons-material';
+import { TrendingUp, CalendarToday, AutoAwesome } from '@mui/icons-material';
 import { Card } from '../components/common/Card';
 import { PageHeader } from '../components/layout/PageHeader';
 import { EmptyState } from '../components/common/EmptyState';
@@ -73,10 +73,10 @@ const PlannerPage: React.FC = () => {
       </Box>
 
       <Grid container spacing={3}>
-        <Grid item xs={12} md={8}>
+        <Grid size={{ xs: 12, md: 8 }}>
           <Card title="Campaign Overview">
             <Grid container spacing={3}>
-              <Grid item xs={6} md={3}>
+              <Grid size={{ xs: 6, md: 3 }}>
                 <Box>
                   <Typography variant="caption" sx={{ color: '#666', textTransform: 'uppercase', fontSize: '11px', letterSpacing: 0.5 }}>
                     Total Budget
@@ -86,7 +86,7 @@ const PlannerPage: React.FC = () => {
                   </Typography>
                 </Box>
               </Grid>
-              <Grid item xs={6} md={3}>
+              <Grid size={{ xs: 6, md: 3 }}>
                 <Box>
                   <Typography variant="caption" sx={{ color: '#666', textTransform: 'uppercase', fontSize: '11px', letterSpacing: 0.5 }}>
                     Allocated
@@ -96,7 +96,7 @@ const PlannerPage: React.FC = () => {
                   </Typography>
                 </Box>
               </Grid>
-              <Grid item xs={6} md={3}>
+              <Grid size={{ xs: 6, md: 3 }}>
                 <Box>
                   <Typography variant="caption" sx={{ color: '#666', textTransform: 'uppercase', fontSize: '11px', letterSpacing: 0.5 }}>
                     Remaining
@@ -106,7 +106,7 @@ const PlannerPage: React.FC = () => {
                   </Typography>
                 </Box>
               </Grid>
-              <Grid item xs={6} md={3}>
+              <Grid size={{ xs: 6, md: 3 }}>
                 <Box>
                   <Typography variant="caption" sx={{ color: '#666', textTransform: 'uppercase', fontSize: '11px', letterSpacing: 0.5 }}>
                     Channels
@@ -143,7 +143,7 @@ const PlannerPage: React.FC = () => {
           </Card>
         </Grid>
         
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Card title="Quick Actions">
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               <Button
