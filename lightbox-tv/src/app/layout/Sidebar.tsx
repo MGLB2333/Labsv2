@@ -18,6 +18,8 @@ import {
   Build,
   ExpandMore,
   ExpandLess,
+  SmartToy,
+  Devices,
 } from '@mui/icons-material';
 import LabsRibbon from '@/shared/components/LabsRibbon';
 
@@ -71,6 +73,34 @@ const Sidebar: React.FC = () => {
             </ListItemIcon>
             <ListItemText 
               primary="Dashboard" 
+              primaryTypographyProps={{ fontSize: '13px', fontWeight: 500 }}
+            />
+          </ListItemButton>
+
+          <ListItemButton 
+            selected={isActive('/ai-assistant')} 
+            onClick={() => handleNavigation('/ai-assistant')}
+            sx={{ py: 0.5 }}
+          >
+            <ListItemIcon sx={{ minWidth: 36 }}>
+              <SmartToy sx={{ fontSize: 18 }} />
+            </ListItemIcon>
+            <ListItemText 
+              primary="AI Assistant" 
+              primaryTypographyProps={{ fontSize: '13px', fontWeight: 500 }}
+            />
+          </ListItemButton>
+
+          <ListItemButton 
+            selected={isActive('/x-screen-reach')} 
+            onClick={() => handleNavigation('/x-screen-reach')}
+            sx={{ py: 0.5 }}
+          >
+            <ListItemIcon sx={{ minWidth: 36 }}>
+              <Devices sx={{ fontSize: 18 }} />
+            </ListItemIcon>
+            <ListItemText 
+              primary="X Screen Reach" 
               primaryTypographyProps={{ fontSize: '13px', fontWeight: 500 }}
             />
           </ListItemButton>

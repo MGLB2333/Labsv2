@@ -11,10 +11,28 @@ import LoginPage from '@/features/auth/LoginPage';
 import SignUpPage from '@/features/auth/SignUpPage';
 import { WhitelabelPage } from '@/features/whitelabel';
 import { ProfilePage } from '@/features/profile';
+import { AiAssistantPage, MediaPlanPage } from '@/features/ai-assistant';
+import { XScreenReachPage } from '@/features/x-screen-reach';
+import LabsV2Page from '@/features/labs-v2/LabsV2Page';
 import LabsEmptySlate from '@/shared/components/LabsEmptySlate';
 import ProtectedRoute from '@/shared/components/ProtectedRoute';
+import { useVersion } from '@/contexts/VersionContext';
 
 const AppRouter: React.FC = () => {
+  const { version } = useVersion();
+
+  // If Labs V2 is selected, show only the V2 page (except public routes)
+  if (version === 'v2') {
+    return (
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/labs-v2/*" element={<ProtectedRoute><LabsV2Page /></ProtectedRoute>} />
+        <Route path="*" element={<ProtectedRoute><LabsV2Page /></ProtectedRoute>} />
+      </Routes>
+    );
+  }
+
   return (
     <Routes>
       {/* Public routes */}
@@ -23,6 +41,9 @@ const AppRouter: React.FC = () => {
       
       {/* Protected routes */}
       <Route path="/" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+      <Route path="/ai-assistant" element={<ProtectedRoute><AiAssistantPage /></ProtectedRoute>} />
+      <Route path="/media-plan" element={<ProtectedRoute><MediaPlanPage /></ProtectedRoute>} />
+      <Route path="/x-screen-reach" element={<ProtectedRoute><XScreenReachPage /></ProtectedRoute>} />
       <Route path="/audiences" element={<ProtectedRoute><AudiencesPage /></ProtectedRoute>} />
       {/* Campaign sub-routes */}
       <Route path="/campaigns/ctv-cinema" element={<ProtectedRoute><CtvCinemaCampaignsPage /></ProtectedRoute>} />

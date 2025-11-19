@@ -1,14 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { AppBar, Toolbar, Avatar, Box, Typography } from '@mui/material';
+import { AppBar, Toolbar, Avatar, Box, Typography, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import UserDropdown from './UserDropdown';
 import { useAuth } from '@/app/providers/AuthProvider';
 import { useLogo } from '@/contexts/LogoContext';
+import { useVersion } from '@/contexts/VersionContext';
 
 const TopBar: React.FC = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const avatarRef = useRef<HTMLDivElement>(null);
   const { user } = useAuth();
   const { selectedLogo } = useLogo();
+  const { version, setVersion } = useVersion();
 
   const getLogoSource = () => {
     switch (selectedLogo) {
@@ -92,10 +94,46 @@ const TopBar: React.FC = () => {
               letterSpacing: '0.5px',
             }}
           >
-            Labs environment
+            {version === 'v1' ? 'Labs V1' : 'Labs V2'}
           </Typography>
         </Box>
-        <Box sx={{ position: 'relative' }} ref={avatarRef}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <ToggleButtonGroup
+            value={version}
+            exclusive
+            onChange={(_, newVersion) => {
+              if (newVersion !== null) {
+                setVersion(newVersion);
+              }
+            }}
+            size="small"
+            sx={{
+              backgroundColor: '#1a1a1a',
+              '& .MuiToggleButton-root': {
+                color: '#999',
+                borderColor: '#333',
+                fontSize: '12px',
+                fontWeight: 500,
+                textTransform: 'none',
+                px: 1.5,
+                py: 0.5,
+                '&.Mui-selected': {
+                  backgroundColor: '#02b5e7',
+                  color: '#fff',
+                  '&:hover': {
+                    backgroundColor: '#0288d1',
+                  },
+                },
+                '&:hover': {
+                  backgroundColor: '#2a2a2a',
+                },
+              },
+            }}
+          >
+            <ToggleButton value="v1">Labs V1</ToggleButton>
+            <ToggleButton value="v2">Labs V2</ToggleButton>
+          </ToggleButtonGroup>
+          <Box sx={{ position: 'relative' }} ref={avatarRef}>
           <Avatar
             onClick={handleAvatarClick}
             sx={{
@@ -113,11 +151,12 @@ const TopBar: React.FC = () => {
           >
             {user?.email?.charAt(0).toUpperCase() || 'U'}
           </Avatar>
-          <UserDropdown
+            <UserDropdown
             open={dropdownOpen}
             anchorEl={avatarRef.current}
             onClose={handleCloseDropdown}
           />
+          </Box>
         </Box>
       </Toolbar>
     </AppBar>

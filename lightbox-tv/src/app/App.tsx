@@ -8,6 +8,7 @@ import { theme } from './theme';
 import { SupabaseProvider } from './providers/SupabaseProvider';
 import { AuthProvider } from './providers/AuthProvider';
 import { LogoProvider } from '../contexts/LogoContext';
+import { VersionProvider } from '../contexts/VersionContext';
 import AppLayout from './layout/AppLayout';
 import AppRouter from './router';
 
@@ -18,12 +19,14 @@ const App: React.FC = () => {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <SupabaseProvider>
             <AuthProvider>
-              <LogoProvider>
-                <CssBaseline />
-                <AppLayout>
-                  <AppRouter />
-                </AppLayout>
-              </LogoProvider>
+              <VersionProvider>
+                <LogoProvider>
+                  <CssBaseline />
+                  <AppLayout>
+                    <AppRouter />
+                  </AppLayout>
+                </LogoProvider>
+              </VersionProvider>
             </AuthProvider>
           </SupabaseProvider>
         </LocalizationProvider>
