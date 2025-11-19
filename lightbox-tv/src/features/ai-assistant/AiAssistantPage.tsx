@@ -500,7 +500,7 @@ const AiAssistantPage: React.FC = () => {
         // First question about campaign details
         const budgetMatch = currentInput.match(/[\d,]+/);
         setCampaignInfo({
-          advertiser: 'Asda',
+          advertiser: 'Co-op',
           startDate: '1st December',
           endDate: '30th December',
           budget: budgetMatch ? `£${budgetMatch[0]}` : '£30,000',
@@ -551,11 +551,11 @@ const AiAssistantPage: React.FC = () => {
   // Get mock rationale for a detail item
   const getDetailRationale = (detail: MediaPlanDetail): string => {
     if (detail.category === 'audience') {
-      return `This audience segment was selected because it aligns perfectly with Asda's target demographic of families with children. The segment shows high engagement with retail advertising and has demonstrated strong response rates to similar campaigns. Using Experian Mosaic data, we've identified this segment as having optimal viewing patterns during peak shopping hours, making it ideal for driving footfall to Asda stores.`;
+      return `This audience segment was selected because it aligns perfectly with Co-op's target demographic of families with children. The segment shows high engagement with retail advertising and has demonstrated strong response rates to similar campaigns. Using Experian Mosaic data, we've identified this segment as having optimal viewing patterns during peak shopping hours, making it ideal for driving footfall to Co-op stores.`;
     } else if (detail.category === 'timing') {
-      return `This measurement solution was chosen because it provides comprehensive tracking of campaign effectiveness. It offers real-time insights into consumer behavior and foot traffic, allowing for accurate attribution of TV advertising to actual store visits. The solution integrates seamlessly with Asda's existing analytics infrastructure and provides detailed reporting on campaign performance metrics.`;
+      return `This measurement solution was chosen because it provides comprehensive tracking of campaign effectiveness. It offers real-time insights into consumer behavior and foot traffic, allowing for accurate attribution of TV advertising to actual store visits. The solution integrates seamlessly with Co-op's existing analytics infrastructure and provides detailed reporting on campaign performance metrics.`;
     } else if (detail.category === 'channels') {
-      return `This inventory channel was selected based on its ability to reach Asda's target audience effectively. The channel offers optimal CPM rates and high reach within the desired demographic segments. It provides excellent coverage during peak viewing times when families are most likely to be watching together, maximizing the impact of the campaign message.`;
+      return `This inventory channel was selected based on its ability to reach Co-op's target audience effectively. The channel offers optimal CPM rates and high reach within the desired demographic segments. It provides excellent coverage during peak viewing times when families are most likely to be watching together, maximizing the impact of the campaign message.`;
     }
     return 'This selection was made based on comprehensive analysis of campaign objectives and target audience behavior.';
   };
@@ -1979,8 +1979,8 @@ const AiAssistantPage: React.FC = () => {
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
               <Box
                 component="img"
-                src="https://www.asda.com/favicon.ico"
-                alt="Asda"
+                src="https://www.google.com/s2/favicons?domain=coop.co.uk&sz=16"
+                alt="Co-op"
                 onError={(e) => {
                   (e.target as HTMLImageElement).style.display = 'none';
                 }}
@@ -1998,7 +1998,7 @@ const AiAssistantPage: React.FC = () => {
                     lineHeight: 1.2,
                 }}
               >
-                  {campaignInfo.advertiser || 'Asda'} Campaign
+                  {campaignInfo.advertiser || 'Co-op'} Campaign
               </Typography>
             <Typography
               sx={{
@@ -2163,7 +2163,7 @@ const AiAssistantPage: React.FC = () => {
                           </FormControl>
                           </Box>
                         <TextField
-                          value={campaignInfo.advertiser || 'Asda'}
+                          value={campaignInfo.advertiser || 'Co-op'}
                           onChange={(e) => setCampaignInfo({ ...campaignInfo, advertiser: e.target.value })}
                           variant="standard"
                           placeholder="Advertiser"
@@ -2783,7 +2783,7 @@ const AiAssistantPage: React.FC = () => {
                       navigate('/media-plan', {
                         state: {
                           planData: {
-                            advertiser: campaignInfo.advertiser || 'Asda',
+                            advertiser: campaignInfo.advertiser || 'Co-op',
                             startDate: campaignInfo.startDate || '1st December',
                             endDate: campaignInfo.endDate || '30th December',
                             budget: campaignInfo.budget,

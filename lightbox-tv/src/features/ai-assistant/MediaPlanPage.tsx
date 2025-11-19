@@ -187,7 +187,7 @@ const MediaPlanPage: React.FC = () => {
   
   // Get plan data from location state or use defaults
   const planData = location.state?.planData || {
-    advertiser: 'Asda',
+    advertiser: 'Co-op',
     startDate: '1st November',
     endDate: '30th November',
     budget: '',
@@ -296,8 +296,8 @@ const MediaPlanPage: React.FC = () => {
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1.5 }}>
                 <Box
                   component="img"
-                  src="https://www.asda.com/favicon.ico"
-                  alt="Asda"
+                  src="https://www.google.com/s2/favicons?domain=coop.co.uk&sz=16"
+                  alt="Co-op"
                   onError={(e) => {
                     (e.target as HTMLImageElement).style.display = 'none';
                   }}
